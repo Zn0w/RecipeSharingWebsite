@@ -2,6 +2,8 @@ package com.zn0w.javacontent.model.user;
 
 import java.util.ArrayList;
 
+import com.zn0w.javacontent.model.Recipe;
+
 public class User {
 	
 	private String name, login, password;

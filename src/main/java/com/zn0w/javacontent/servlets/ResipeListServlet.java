@@ -1,16 +1,23 @@
 package com.zn0w.javacontent.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.zn0w.javacontent.model.Model;
+import com.zn0w.javacontent.model.Recipe;
 
 /**
  * Servlet implementation class ResipesServlet
  */
 public class ResipeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private Model model;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -23,13 +30,25 @@ public class ResipeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] recipes = new String[10];
+		model = new Model();
+		ArrayList<Recipe> recipes = model.getRecipes();
 		
-		for (int i = 0; i < 10; i++) {
-			recipes[i] = "recipe" + Integer.toString(i + 1);
+		String[][] recipeInfo = new String[recipes.size()][4];
+		
+		for (int i = 0; i < recipes.size(); i++) {
+			Recipe recipe = recipes.get(i);
+			
+			recipeInfo[i][0] = recipe.getName();
+			recipeInfo[i][1] = recipe.getIngridients();
+			recipeInfo[i][2] = recipe.getDescription();
+			recipeInfo[i][3] = recipe.getAuthorName();
 		}
 		
-		request.setAttribute("recipes", recipes);
+		request.setAttribute("recipes", recipeInfo);
+		/*request.setAttribute("recipeIngridients", recipeIngridients);
+		request.setAttribute("recipeDescription", recipeDescription);
+		request.setAttribute("authorName", authorName);*/
+		
 		request.getRequestDispatcher("recipeList.jsp").forward(request, response);
 	}
 

@@ -23,9 +23,14 @@
 	</div>
 	
 	<%
-		String[] recipes = (String[]) request.getAttribute("recipes");
-		for (int i = 0; i < 10; i++) {
-			out.println(recipes[i]);
+		String[][] recipeInfo = (String[][]) request.getAttribute("recipes");
+		
+		for (int i = 0; i < recipeInfo.length; i++) {
+			out.println(recipeInfo[i][0]);
+			out.println(recipeInfo[i][1]);
+			out.println(recipeInfo[i][2]);
+			out.println(recipeInfo[i][3]);
+			out.println("\n");
 		}
 	%>
 </body>

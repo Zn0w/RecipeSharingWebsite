@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>com.zn0w.javacontent.servlets.ResipeListServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RecipeServlet</servlet-name>
+  	<display-name>RecipeServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.zn0w.javacontent.servlets.RecipeServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
   	<url-pattern>/ResipeListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RecipeServlet</servlet-name>
+  	<url-pattern>/RecipeServlet</url-pattern>
   </servlet-mapping>
 </web-app>

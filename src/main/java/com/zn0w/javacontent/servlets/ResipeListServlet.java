@@ -44,11 +44,10 @@ public class ResipeListServlet extends HttpServlet {
 			recipeInfo[i][3] = recipe.getAuthorName();
 		}
 		
-		request.setAttribute("recipes", recipeInfo);
-		/*request.setAttribute("recipeIngridients", recipeIngridients);
-		request.setAttribute("recipeDescription", recipeDescription);
-		request.setAttribute("authorName", authorName);*/
+		String word = "hi";
 		
+		request.setAttribute("recipes", recipeInfo);
+		request.setAttribute("wordHi", word);
 		request.getRequestDispatcher("recipeList.jsp").forward(request, response);
 	}
 

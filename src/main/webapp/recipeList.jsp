@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 
@@ -27,10 +25,12 @@
 		String[][] recipes = (String[][]) request.getAttribute("recipes");
 	%>
 	
-	<form action="RecipeServlet">
+	<form action="RecipeServlet" method = "post">	
+		<input type = "hidden" value = "<%=recipes%>" name = "recipes">
+		
 		<%
 			for (int i = 0; i < recipes.length; i++) {
-				out.println("<input type = 'submit' value = '" + recipes[i][0] + " by " + recipes[i][3] + "' name = 'button name'>");
+				out.println("<input type = 'submit' value = '" + recipes[i][0] + " by " + recipes[i][3] + "' name = 'button name'> <br>");
 			}
 		%>
 	</form>

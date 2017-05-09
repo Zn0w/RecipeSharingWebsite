@@ -26,7 +26,7 @@ public class Model {
 				Recipe recipe = new Recipe();
 				
 				recipe.setName(rs.getString(2));
-				recipe.setIngridients(rs.getString(3));
+				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
 				recipe.setAuthorLogin(rs.getString(5));
 				recipe.setAuthorName(rs.getString(6));

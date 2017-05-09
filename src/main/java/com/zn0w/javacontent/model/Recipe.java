@@ -4,29 +4,44 @@ import java.util.ArrayList;
 
 public class Recipe {
 	
-	private ArrayList<String> ingridientsList = new ArrayList<String>();
+	private ArrayList<String> ingredientsList = new ArrayList<String>();
 	private String description, name, authorName, authorLogin, ingridients;
 	
-	public String getIngridient(int index) {
-		return ingridientsList.get(index);
+	public String getIngredient(int index) {
+		return ingredientsList.get(index);
 	}
 	
-	public void setIngridients(String ingridients) {
-		/*String ingridient = "";
+	public void setIngredients(String ingridients) {
+		this.ingridients = ingridients;
+		
+		String ingridient = "";
 		
 		for (int i = 0; i < ingridients.length(); i++) {
 			if (ingridients.charAt(i) != ',')
 				ingridient += ingridients.charAt(i);
 			else {
-				ingridientsList.add(ingridient);
+				ingredientsList.add(ingridient);
 				ingridient = "";
 			}
-		}*/
-		this.ingridients = ingridients;
+		}
 	}
 	
-	public String getIngridients() {
+	public String[] getIngredientsArray() {
+		String[] ingredients = new String[ingredientsList.size()];
+		
+		for (int i = 0; i < ingredientsList.size(); i++) {
+			ingredients[i] = ingredientsList.get(i);
+		}
+		
+		return ingredients;
+	}
+	
+	public String getIngredients() {
 		return ingridients;
+	}
+	
+	public ArrayList<String> getIngredientsList() {
+		return ingredientsList;
 	}
 	
 	public String getDescription() {

@@ -16,7 +16,7 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a>
 	</div>
 		
-	Home
+	Recipe list
 	
 	<%
 		String[][] recipes = (String[][]) request.getAttribute("recipes");

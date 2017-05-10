@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Recipe sharing</title>
@@ -19,30 +18,22 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a>
 	</div>
 		
-	Recipe
-		
-		<%
-			String recipeName = (String) request.getAttribute("recipeName");
-			String author = (String) request.getAttribute("author");
-			String[] ingredients = (String[]) request.getAttribute("ingredients");
-			String description = (String) request.getAttribute("description");
-		%>
-		
-		<h1><%=recipeName%></h1>
-		<h2>By <%=author%>'s recipe</h2>
-		<h3>Ingredients</h3>
-			
-		<ul>
-		<%
-			for (int i = 0; i < ingredients.length; i++) {
-				out.println("<li>" + ingredients[i] + "</li>");
-			}
-		%>
-		</ul>
-		
-		<h3>Description</h3>
-		
-		<p><%=description%></p>
+	Register
+	<br><br><br><br>
+	
+	<div align = "center">
+		<form action="RegisterServlet" method = "post">
+			Username: <input type = "text" name = "username">
+			<br>
+			Real name <input type = "text" name = "name">
+			<br>
+			Password : <input type = "password" name = "password1">
+			<br>
+			Password confirmation : <input type = "password" name = "password2">
+			<br>
+			<input type = "submit" value = "Submit">
+		</form>
+	</div>
 </body>
 
 </html>

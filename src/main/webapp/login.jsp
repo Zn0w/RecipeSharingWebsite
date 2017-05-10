@@ -19,30 +19,21 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a>
 	</div>
 		
-	Recipe
-		
-		<%
-			String recipeName = (String) request.getAttribute("recipeName");
-			String author = (String) request.getAttribute("author");
-			String[] ingredients = (String[]) request.getAttribute("ingredients");
-			String description = (String) request.getAttribute("description");
-		%>
-		
-		<h1><%=recipeName%></h1>
-		<h2>By <%=author%>'s recipe</h2>
-		<h3>Ingredients</h3>
-			
-		<ul>
-		<%
-			for (int i = 0; i < ingredients.length; i++) {
-				out.println("<li>" + ingredients[i] + "</li>");
-			}
-		%>
-		</ul>
-		
-		<h3>Description</h3>
-		
-		<p><%=description%></p>
+	Login
+	<br><br><br><br>
+	<div align = "center">
+		<form action="LoginServlet" method = "post">
+			Username: <input type = "text" name = "username">
+			<br>
+			Password: <input type = "password" name = "password">
+			<br>
+			<input type = "submit" value = "Submit">
+			<br><br>
+			If you don't have account you can register right now.
+			<br>
+			<a href = "http://localhost:8080/recipe-sharing-site/register.jsp">Register</a>
+		</form>
+	</div>
 </body>
 
 </html>

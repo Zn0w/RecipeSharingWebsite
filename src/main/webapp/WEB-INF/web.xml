@@ -16,6 +16,18 @@
   	<description></description>
   	<servlet-class>com.zn0w.javacontent.servlets.RecipeServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<display-name>LoginServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.zn0w.javacontent.servlets.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<display-name>RegisterServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.zn0w.javacontent.servlets.RegisterServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
   	<url-pattern>/ResipeListServlet</url-pattern>
@@ -23,5 +35,13 @@
   <servlet-mapping>
   	<servlet-name>RecipeServlet</servlet-name>
   	<url-pattern>/RecipeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
 </web-app>

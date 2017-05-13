@@ -7,10 +7,13 @@ import com.zn0w.javacontent.model.Recipe;
 public class User {
 	
 	private String name, login, password;
-	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+	private ArrayList<Recipe> userRecipes = new ArrayList<Recipe>();
+	private ArrayList<Recipe> favouritedRecipe = new ArrayList<Recipe>();
 	
-	public User() {
-		
+	public User(String login, String name, String password) {
+		this.login = login;
+		this.name = name;
+		this.password = password;
 	}
 
 	public String getName() {
@@ -37,12 +40,20 @@ public class User {
 		this.password = password;
 	}
 
-	public ArrayList<Recipe> getRecipes() {
-		return recipes;
+	public ArrayList<Recipe> getUserRecipes() {
+		return userRecipes;
 	}
 
-	public void setRecipes(ArrayList<Recipe> recipes) {
-		this.recipes = recipes;
+	public void setUserRecipes(ArrayList<Recipe> userRecipes) {
+		this.userRecipes = userRecipes;
+	}
+
+	public ArrayList<Recipe> getFavouritedRecipe() {
+		return favouritedRecipe;
+	}
+
+	public void setFavouritedRecipe(ArrayList<Recipe> favouritedRecipe) {
+		this.favouritedRecipe = favouritedRecipe;
 	}
 	
 }

@@ -39,6 +39,8 @@ public class RecipeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		model = new Model();
+		model.loadRecipesInfo();
+		
 		ArrayList<Recipe> recipes = model.getRecipes();
 		System.out.println(recipes.get(0).getName());
 		System.out.println(recipes.get(0).getAuthorName());

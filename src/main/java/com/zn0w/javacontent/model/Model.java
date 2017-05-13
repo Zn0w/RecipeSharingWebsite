@@ -6,18 +6,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.zn0w.javacontent.db.DBConnector;
+import com.zn0w.javacontent.model.user.User;
 
 public class Model {
 	
-	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+	private DBConnector dbConnector = new DBConnector();
 	
-	public Model() {
-		loadRecipesInfo();
-	}
+	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+	private ArrayList<User> users = new ArrayList<User>();
 	
 	public void loadRecipesInfo() {
-		DBConnector dbConnector = new DBConnector();
-		
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from recipes");
@@ -39,6 +37,31 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean loginIsCreated(String login) {
+		ResultSet rs = null;
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			rs = statement.executeQuery("select * form users where user_login = '"+login+"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (rs == null)
+			return false;
+		else
+			return true;
+	}
+	
+	public void registerUser(User user) {
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			statement.executeUpdate("insert into users(user_login, user_name, user_password) values('"+user.getLogin()+"', '"+user.getName()+"', '"+user.getPassword()+"')");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public ArrayList<Recipe> getRecipes() {
 		return recipes;
@@ -46,6 +69,14 @@ public class Model {
 
 	public void setRecipes(ArrayList<Recipe> recipes) {
 		this.recipes = recipes;
+	}
+
+	public ArrayList<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<User> users) {
+		this.users = users;
 	}
 	
 }

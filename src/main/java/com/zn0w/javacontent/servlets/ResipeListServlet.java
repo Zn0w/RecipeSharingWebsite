@@ -31,6 +31,8 @@ public class ResipeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		model = new Model();
+		model.loadRecipesInfo();
+		
 		ArrayList<Recipe> recipes = model.getRecipes();
 		
 		String[][] recipeInfo = new String[recipes.size()][4];

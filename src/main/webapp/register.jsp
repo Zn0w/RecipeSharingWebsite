@@ -25,7 +25,7 @@
 		<form action="RegisterServlet" method = "post">
 			Username: <input type = "text" name = "username">
 			<br>
-			Real name <input type = "text" name = "name">
+			Display name <input type = "text" name = "name">
 			<br>
 			Password : <input type = "password" name = "password1">
 			<br>

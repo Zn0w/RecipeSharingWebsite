@@ -47,11 +47,13 @@ public class RegisterServlet extends HttpServlet {
 		
 		if (!password1.equals(password2))
 			message = "Passwords don't match.";
-		else if (!model.loginIsCreated(login)) {
+		else if (!model.loginIsCreated(login, name)) {
 			User user = new User(login, name, password1);
 			model.registerUser(user);
 			message = "User has been succesfully created!";
 		}
+		else if (model.loginIsCreated(login, name))
+			message = "Your login or display name already exists.";
 		else
 			message = "Something went wrong.";
 		

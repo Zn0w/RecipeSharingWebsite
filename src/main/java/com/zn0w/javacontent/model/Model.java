@@ -10,12 +10,12 @@ import com.zn0w.javacontent.model.user.User;
 
 public class Model {
 	
-	private DBConnector dbConnector = new DBConnector();
-	
 	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private ArrayList<User> users = new ArrayList<User>();
 	
 	public void loadRecipesInfo() {
+		DBConnector dbConnector = new DBConnector();
+		
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from recipes");
@@ -38,23 +38,29 @@ public class Model {
 		}
 	}
 	
-	public boolean loginIsCreated(String login) {
-		ResultSet rs = null;
+	public boolean loginIsCreated(String login, String name) {
+		DBConnector dbConnector = new DBConnector();
 		
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
-			rs = statement.executeQuery("select * form users where user_login = '"+login+"'");
+			ResultSet rs = statement.executeQuery("select * from users");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(login) || rs.getString(3).equals(name))
+					return true;
+				else
+					return false;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		if (rs == null)
-			return false;
-		else
-			return true;
+		return false;
 	}
 	
 	public void registerUser(User user) {
+		DBConnector dbConnector = new DBConnector();
+		
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
 			statement.executeUpdate("insert into users(user_login, user_name, user_password) values('"+user.getLogin()+"', '"+user.getName()+"', '"+user.getPassword()+"')");

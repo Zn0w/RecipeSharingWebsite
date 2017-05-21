@@ -29,7 +29,7 @@
 			<br>
 			<input type = "submit" value = "Submit">
 			<br><br>
-			If you don't have account you can register right now.
+			If you don't have an account you can register right now.
 			<br>
 			<a href = "http://localhost:8080/recipe-sharing-site/register.jsp">Register</a>
 		</form>

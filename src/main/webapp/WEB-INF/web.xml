@@ -28,6 +28,12 @@
   	<description></description>
   	<servlet-class>com.zn0w.javacontent.servlets.RegisterServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<display-name>LogoutServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.zn0w.javacontent.servlets.LogoutServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
   	<url-pattern>/ResipeListServlet</url-pattern>
@@ -43,5 +49,9 @@
   <servlet-mapping>
   	<servlet-name>RegisterServlet</servlet-name>
   	<url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
 </web-app>

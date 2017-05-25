@@ -38,7 +38,7 @@ public class Model {
 		}
 	}
 	
-	public boolean loginIsCreated(String login, String name) {
+	public void loadMinimumUsersInfo() {
 		DBConnector dbConnector = new DBConnector();
 		
 		try {
@@ -46,7 +46,46 @@ public class Model {
 			ResultSet rs = statement.executeQuery("select * from users");
 			
 			while (rs.next()) {
-				if (rs.getString(2).equals(login) || rs.getString(3).equals(name))
+				User user = new User(rs.getString(2), rs.getString(3), rs.getString(4));
+				
+				users.add(user);
+			}
+			
+			System.out.println("Users from database have been loaded.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean loginIsCreated(String login) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from users");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(login))
+					return true;
+				else
+					return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean nameIsCreated(String name) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from users");
+			
+			while (rs.next()) {
+				if (rs.getString(3).equals(name))
 					return true;
 				else
 					return false;

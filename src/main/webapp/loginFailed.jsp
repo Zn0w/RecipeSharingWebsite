@@ -5,8 +5,8 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Recipe Sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
+<title>Recipe sharing</title>
 </head>
 
 <body>
@@ -19,16 +19,16 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a>
 	</div>
 		
-	Register result
+	Login failed
 	<br><br><br><br>
 	
 	<div align = "center">
 		<%
-			String message = (String) request.getAttribute("message");
-		%>
-		
-		<h1><%=message%></h1>
-		<h1><a href = "http://localhost:8080/recipe-sharing-site/login.jsp">Log in</a></h1>
+		String message = (String) request.getAttribute("message");
+	%>
+	
+	<h1><%=message%></h1>
+	<a href = "http://localhost:8080/recipe-sharing-site/login.jsp">Try again</a>
 	</div>
 </body>
 

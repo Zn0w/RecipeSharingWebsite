@@ -14,7 +14,7 @@
 		
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Recipes</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/recipesMain.jsp">Recipes</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/">Share recipe</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a>
 	</div>

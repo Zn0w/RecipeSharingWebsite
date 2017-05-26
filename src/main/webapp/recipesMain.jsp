@@ -1,8 +1,11 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-	<title>Recipe sharing</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Recipe Sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
 </head>
 
@@ -26,7 +29,7 @@
 	
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/recipesMain.jsp">Recipes</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Recipes</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/">Share recipe</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/">About</a> &nbsp;
 	</div>
@@ -43,22 +46,17 @@
 		%>
 	</div>
 		
-	Recipe list
+	Recipes
+	<br><br><br><br>
 	
-	<%
-		String[][] recipes = (String[][]) request.getAttribute("recipes");
-	%>
+	<h3><a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Find new recipes!</a></h3>
+	<p>Here you can find recipes that is shared by other users of this web-site.</p>
 	
-	<form action="RecipeServlet" method = "post">	
-		<input type = "hidden" value = "<%=recipes%>" name = "recipes">
-		
-		<%
-			for (int i = 0; i < recipes.length; i++) {
-				out.println("<input type = 'submit' value = '" + recipes[i][0] + " by " + recipes[i][3] + "' name = 'button name'> <br>");
-			}
-		%>
-	</form>
+	<h3><a href = "http://localhost:8080/recipe-sharing-site/MyRecipesServlet">My recipes</a></h3>
+	<p>Here you can see recipes you have already shared.</p>
 	
+	<h3><a href = "http://localhost:8080/recipe-sharing-site/FavouritedRecipesServlet">Favourited recipes</a></h3>
+	<p>Here you can see recipes that you have favorited.</p>
 </body>
 
 </html>

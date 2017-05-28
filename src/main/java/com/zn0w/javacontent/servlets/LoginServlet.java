@@ -46,6 +46,14 @@ public class LoginServlet extends HttpServlet {
 		model.loadMinimumUsersInfo();
 		ArrayList<User> users = model.getUsers();
 		
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println("iteration " + i);
+			
+			User user = users.get(i);
+			
+			System.out.println(user.getLogin());
+		}
+		
 		User preferedUser = null;
 		
 		if (users != null) {

@@ -45,7 +45,10 @@ public class RegisterServlet extends HttpServlet {
 		
 		String message = "";
 		
-		if (!password1.equals(password2))
+		if (login.endsWith(" ") || name.endsWith(" ") || password1.endsWith(" ")) {
+			message = "Do not put spaces after symbols!";
+		}
+		else if (!password1.equals(password2))
 			message = "Passwords don't match.";
 		else if ((!model.loginIsCreated(login)) && (!model.nameIsCreated(name))) {
 			User user = new User(login, name, password1);

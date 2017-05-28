@@ -38,6 +38,10 @@ public class Model {
 		}
 	}
 	
+	public void loadRecipe() {
+		
+	}
+	
 	public void loadMinimumUsersInfo() {
 		DBConnector dbConnector = new DBConnector();
 		
@@ -57,6 +61,10 @@ public class Model {
 		}
 	}
 	
+	public void loadUser() {
+		
+	}
+	
 	public boolean loginIsCreated(String login) {
 		DBConnector dbConnector = new DBConnector();
 		
@@ -67,8 +75,6 @@ public class Model {
 			while (rs.next()) {
 				if (rs.getString(2).equals(login))
 					return true;
-				else
-					return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

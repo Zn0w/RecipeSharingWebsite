@@ -28,7 +28,15 @@
 		%>
 		
 		<h1><%=message%></h1>
-		<h1><a href = "http://localhost:8080/recipe-sharing-site/login.jsp">Log in</a></h1>
+		
+		<%
+			if (message.equals("User has been succesfully created!")) {
+				out.println("<h1><a href = 'http://localhost:8080/recipe-sharing-site/login.jsp'>Log in</a></h1>");
+			}
+			else {
+				out.println("<h1><a href = http://localhost:8080/recipe-sharing-site/register.jsp>Try again</a></h1>");
+			}
+		%>
 	</div>
 </body>
 

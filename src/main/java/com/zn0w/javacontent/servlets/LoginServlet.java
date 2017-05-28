@@ -43,42 +43,18 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		model.loadMinimumUsersInfo();
-		ArrayList<User> users = model.getUsers();
-		
-		for (int i = 0; i < users.size(); i++) {
-			System.out.println("iteration " + i);
-			
-			User user = users.get(i);
-			
-			System.out.println(user.getLogin());
-		}
-		
 		User preferedUser = null;
 		
-		if (users != null) {
-			if (model.loginIsCreated(username)) {
-				for (int i = 0; i < users.size(); i++) {
-					User user = users.get(i);
-					
-					System.out.println("user" + i);
-					
-					if (user.getLogin().equals(username) && user.getPassword().equals(password)) {
-						System.out.println("Got user.");
-						
-						preferedUser = user;
-						break;
-					}
-				}
-			}
-			else {
+		if (model.loginIsCreated(username)) {
+			preferedUser = model.loadUser(username, password);
+		}
+		else {
 				System.out.println("User with this username doesn't exist.");
 				
 				String message = "User with this username doesn't exist.";
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("loginFailed.jsp").forward(request, response);
 			}
-		}
 		
 		if (preferedUser != null) {
 			System.out.println("Success.");

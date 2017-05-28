@@ -38,8 +38,31 @@ public class Model {
 		}
 	}
 	
-	public void loadRecipe() {
+	public Recipe loadRecipe(String recipeName, String author) {
+		DBConnector dbConnector = new DBConnector();
 		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from recipes");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(recipeName) && rs.getString(6).equals(author)) {
+					Recipe recipe = new Recipe();
+					
+					recipe.setName(rs.getString(2));
+					recipe.setIngredients(rs.getString(3));
+					recipe.setDescription(rs.getString(4));
+					recipe.setAuthorLogin(rs.getString(5));
+					recipe.setAuthorName(rs.getString(6));
+					
+					return recipe;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public void loadMinimumUsersInfo() {
@@ -61,8 +84,25 @@ public class Model {
 		}
 	}
 	
-	public void loadUser() {
+	public User loadUser(String login, String password) {
+		DBConnector dbConnector = new DBConnector();
 		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from users");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(login) && rs.getString(4).equals(password)) {
+					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4));
+					
+					return user;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public boolean loginIsCreated(String login) {

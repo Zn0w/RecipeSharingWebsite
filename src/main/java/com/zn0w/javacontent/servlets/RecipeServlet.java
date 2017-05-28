@@ -39,11 +39,6 @@ public class RecipeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		model = new Model();
-		model.loadRecipesInfo();
-		
-		ArrayList<Recipe> recipes = model.getRecipes();
-		System.out.println(recipes.get(0).getName());
-		System.out.println(recipes.get(0).getAuthorName());
 		
 		String bn = request.getParameter("button name");
 		
@@ -76,15 +71,7 @@ public class RecipeServlet extends HttpServlet {
 		System.out.println(recipeName + recipeAuthor);
 		
 		// Getting recipe
-		Recipe preferedRecipe = null;
-		
-		for (int i = 0; i < recipes.size(); i++) {
-			Recipe recipe = recipes.get(i);
-			
-			if (recipe.getName().equals(recipeName) && recipe.getAuthorName().equals(recipeAuthor)) {
-				preferedRecipe = recipe;
-			}
-		}
+		Recipe preferedRecipe = model.loadRecipe(recipeName, recipeAuthor);
 		
 		String[] ingredients = null;
 		String description = "";

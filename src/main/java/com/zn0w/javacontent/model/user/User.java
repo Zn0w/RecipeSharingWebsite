@@ -2,18 +2,65 @@ package com.zn0w.javacontent.model.user;
 
 import java.util.ArrayList;
 
+import com.zn0w.javacontent.model.Model;
 import com.zn0w.javacontent.model.Recipe;
 
 public class User {
 	
 	private String name, login, password;
 	private ArrayList<Recipe> userRecipes = new ArrayList<Recipe>();
-	private ArrayList<Recipe> favouritedRecipe = new ArrayList<Recipe>();
+	private ArrayList<Recipe> favouritedRecipes = new ArrayList<Recipe>();
 	
 	public User(String login, String name, String password) {
 		this.login = login;
 		this.name = name;
 		this.password = password;
+	}
+	
+	public User(String login, String name, String password, String userRecipesStr, String userFavouritesStr) {
+		this.login = login;
+		this.name = name;
+		this.password = password;
+		
+		char[] userRecipesDivided = null;
+		char[] userFavouritesDivided = null;
+		
+		if (userRecipesStr != null)
+			userRecipesDivided = userRecipesStr.toCharArray();
+		
+		if (userFavouritesStr != null)
+			userFavouritesDivided = userFavouritesStr.toCharArray();
+		
+		Model model = new Model();
+		model.loadRecipesInfo();
+		
+		ArrayList<Recipe> recipes = model.getRecipes();
+		
+		if (userRecipesDivided != null) {
+			for (int i = 0; i < userRecipesDivided.length; i++) {
+				if (userRecipesDivided[i] == ' ') {
+					continue;
+				}
+			
+			for (int j = 0; j < recipes.size(); j++) {
+				if (recipes.get(j).getID().equals(userRecipesDivided[i]))
+					userRecipes.add(recipes.get(j));
+				}
+			}
+		}
+		
+		if (userFavouritesDivided != null) {
+			for (int i = 0; i < userFavouritesDivided.length; i++) {
+				if (userFavouritesDivided[i] == ' ') {
+					continue;
+				}
+				
+				for (int j = 0; j < recipes.size(); j++) {
+					if (recipes.get(j).getID().equals(userFavouritesDivided[i]))
+						favouritedRecipes.add(recipes.get(j));
+				}
+			}
+		}
 	}
 
 	public String getName() {
@@ -48,12 +95,12 @@ public class User {
 		this.userRecipes = userRecipes;
 	}
 
-	public ArrayList<Recipe> getFavouritedRecipe() {
-		return favouritedRecipe;
+	public ArrayList<Recipe> getFavouritedRecipes() {
+		return favouritedRecipes;
 	}
 
-	public void setFavouritedRecipe(ArrayList<Recipe> favouritedRecipe) {
-		this.favouritedRecipe = favouritedRecipe;
+	public void setFavouritedRecipes(ArrayList<Recipe> favouritedRecipes) {
+		this.favouritedRecipes = favouritedRecipes;
 	}
 	
 }

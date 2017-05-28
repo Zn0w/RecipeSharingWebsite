@@ -23,6 +23,7 @@ public class Model {
 			while (rs.next()) {
 				Recipe recipe = new Recipe();
 				
+				recipe.setID(rs.getString(1));
 				recipe.setName(rs.getString(2));
 				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
@@ -94,6 +95,27 @@ public class Model {
 			while (rs.next()) {
 				if (rs.getString(2).equals(login) && rs.getString(4).equals(password)) {
 					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4));
+					
+					return user;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public User loadUserFull(String login) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from users");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(login)) {
+					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
 					
 					return user;
 				}

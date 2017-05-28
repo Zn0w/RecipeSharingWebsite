@@ -5,7 +5,15 @@ import java.util.ArrayList;
 public class Recipe {
 	
 	private ArrayList<String> ingredientsList = new ArrayList<String>();
-	private String description, name, authorName, authorLogin, ingridients;
+	private String id, description, name, authorName, authorLogin, ingridients;
+	
+	public void setID(String id) {
+		this.id = id;
+	}
+	
+	public String getID() {
+		return id;
+	}
 	
 	public String getIngredient(int index) {
 		return ingredientsList.get(index);

@@ -1,16 +1,25 @@
 package com.zn0w.javacontent.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.zn0w.javacontent.model.Model;
+import com.zn0w.javacontent.model.Recipe;
+import com.zn0w.javacontent.model.user.User;
 
 /**
  * Servlet implementation class MyRecipesServlet
  */
 public class MyRecipesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private Model model;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -23,7 +32,38 @@ public class MyRecipesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		model = new Model();
+		
+		Cookie cookies[] = request.getCookies();
+		
+		String login = null;
+		
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("username")) {
+					login = cookies[i].getValue();
+					break;
+				}
+			}
+		}
+		
+		if (login != null) {
+			User user = model.loadUserFull(login);
+			
+			ArrayList<Recipe> myRecipes = user.getUserRecipes();
+			
+			String[] recipeNames = null;
+			
+			for (int i = 0; i < myRecipes.size(); i++) {
+				recipeNames[i] = myRecipes.get(i).getName();
+			}
+			
+			request.setAttribute("recipeNames", recipeNames);
+			request.getRequestDispatcher("myRecipes.jsp").forward(request, response);
+		}
+		else {
+			response.sendRedirect("login.jsp");
+		}
 	}
 
 	/**

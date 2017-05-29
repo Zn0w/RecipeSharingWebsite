@@ -52,7 +52,16 @@ public class MyRecipesServlet extends HttpServlet {
 			
 			ArrayList<Recipe> myRecipes = user.getUserRecipes();
 			
-			String[] recipeNames = null;
+			System.out.println("Test.");
+			
+			if (myRecipes == null)
+				System.out.println("User recipes array is null.");
+			
+			for (int i = 0; i < myRecipes.size(); i++) {
+				System.out.println(myRecipes.get(i).getName());
+			}
+			
+			String[] recipeNames = new String[myRecipes.size()];
 			
 			for (int i = 0; i < myRecipes.size(); i++) {
 				recipeNames[i] = myRecipes.get(i).getName();

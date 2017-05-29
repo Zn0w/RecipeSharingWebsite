@@ -54,13 +54,8 @@
 	<%
 		String[] recipeNames = (String[]) request.getAttribute("recipeNames");
 		
-		if (recipeNames != null) {
-			for (int i = 0; i < recipeNames.length; i++) {
-				out.println("<input type = 'submit' value = '" + recipeNames[i] + " by " + name + "' name = 'button name'> <br>");
-			}
-		}
-		else {
-			out.println("<h1>You haven't shared any recipe yet.</h1>");
+		for (int i = 0; i < recipeNames.length; i++) {
+			out.println("<input type = 'submit' value = '" + recipeNames[i] + " by " + name + "' name = 'button name'> <br>");
 		}
 	%>
 	

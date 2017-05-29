@@ -17,16 +17,12 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(String login, String name, String password, String userRecipesStr, String userFavouritesStr) {
+	public User(String login, String name, String password, String userFavouritesStr) {
 		this.login = login;
 		this.name = name;
 		this.password = password;
 		
-		char[] userRecipesDivided = null;
 		char[] userFavouritesDivided = null;
-		
-		if (userRecipesStr != null)
-			userRecipesDivided = userRecipesStr.toCharArray();
 		
 		if (userFavouritesStr != null)
 			userFavouritesDivided = userFavouritesStr.toCharArray();
@@ -34,32 +30,10 @@ public class User {
 		Model model = new Model();
 		model.loadRecipesInfo();
 		
-		ArrayList<Recipe> recipes = model.getRecipes();
+		userRecipes = model.loadUserRecipes(login);
 		
-		if (userRecipesDivided != null) {
-			for (int i = 0; i < userRecipesDivided.length; i++) {
-				if (userRecipesDivided[i] == ' ') {
-					continue;
-				}
-			
-			for (int j = 0; j < recipes.size(); j++) {
-				if (recipes.get(j).getID().equals(userRecipesDivided[i]))
-					userRecipes.add(recipes.get(j));
-				}
-			}
-		}
-		
-		if (userFavouritesDivided != null) {
-			for (int i = 0; i < userFavouritesDivided.length; i++) {
-				if (userFavouritesDivided[i] == ' ') {
-					continue;
-				}
-				
-				for (int j = 0; j < recipes.size(); j++) {
-					if (recipes.get(j).getID().equals(userFavouritesDivided[i]))
-						favouritedRecipes.add(recipes.get(j));
-				}
-			}
+		for (int i = 0; i < userRecipes.size(); i++) {
+			System.out.println(userRecipes.get(i).getName());
 		}
 	}
 

@@ -115,7 +115,7 @@ public class Model {
 			
 			while (rs.next()) {
 				if (rs.getString(2).equals(login)) {
-					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 					
 					return user;
 				}
@@ -125,6 +125,36 @@ public class Model {
 		}
 		
 		return null;
+	}
+	
+	public ArrayList<Recipe> loadUserRecipes(String login) {
+		DBConnector dbConnector = new DBConnector();
+		
+		ArrayList<Recipe> userRecipes = new ArrayList<Recipe>();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from recipes where recipe_author_login = '"+login+"'");
+			
+			while (rs.next()) {
+				Recipe recipe = new Recipe();
+				
+				recipe.setID(rs.getString(1));
+				recipe.setName(rs.getString(2));
+				recipe.setIngredients(rs.getString(3));
+				recipe.setDescription(rs.getString(4));
+				recipe.setAuthorLogin(rs.getString(5));
+				recipe.setAuthorName(rs.getString(6));
+				
+				userRecipes.add(recipe);
+			}
+			
+			System.out.println("User recipes have been loaded.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return userRecipes;
 	}
 	
 	public boolean loginIsCreated(String login) {

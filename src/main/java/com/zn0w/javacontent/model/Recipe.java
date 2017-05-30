@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Recipe {
 	
 	private ArrayList<String> ingredientsList = new ArrayList<String>();
-	private String id, description, name, authorName, authorLogin, ingridients;
+	private String id, description, name, authorName, authorLogin, ingredients;
 	
 	public void setID(String id) {
 		this.id = id;
@@ -20,17 +20,28 @@ public class Recipe {
 	}
 	
 	public void setIngredients(String ingridients) {
-		this.ingridients = ingridients;
+		this.ingredients = ingridients;
+		
+		System.out.println("Ingredients: " + ingridients);
 		
 		String ingridient = "";
 		
 		for (int i = 0; i < ingridients.length(); i++) {
-			if (ingridients.charAt(i) != ',')
-				ingridient += ingridients.charAt(i);
-			else {
+			if (ingridients.charAt(i) == ',') {
 				ingredientsList.add(ingridient);
 				ingridient = "";
 			}
+			else if (ingridients.charAt(i) == '.') {
+				ingredientsList.add(ingridient);
+				ingridient = "";
+			}
+			else 
+				ingridient += ingridients.charAt(i);
+		}
+		
+		System.out.println("___________________________\nTesting\n");
+		for (int i = 0; i < ingredientsList.size(); i++) {
+			System.out.println(ingredientsList.get(i));
 		}
 	}
 	
@@ -45,7 +56,7 @@ public class Recipe {
 	}
 	
 	public String getIngredients() {
-		return ingridients;
+		return ingredients;
 	}
 	
 	public ArrayList<String> getIngredientsList() {

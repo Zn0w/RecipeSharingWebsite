@@ -1,6 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Recipe sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
 </head>
@@ -41,24 +45,26 @@
 				out.println("<form action = 'login.jsp' method = 'post'><input type = 'submit' value = 'Login' align = 'right'></form>");
 		%>
 	</div>
+	
+	<%
+		if (name.equals("Guest"))
+			response.sendRedirect("login.jsp");
+	%>
 		
-	Home
+	Share recipe
 	<br><br><br><br>
 	<div align = "center">
-		<h1>Web-site where you can find other people's recipes or share your own recipes.</h1>
-		
-		<%
-			if (!name.equals("Guest"))
-				out.println("<h3>Welome, " + name + "</h3>");
-			else
-				out.println("<h3>Welome, " + name + "</h3>" +
-						"<h1>Please, </h1>" +
-						"<form action='login.jsp'>" +
-						"<input type = 'submit' value = 'Login'>" +
-						"<br>" +
-						"<h1>to comment other's recipes, share recipes or add recipes in favorites.</h1>" +
-					"</form> ");
-		%>
+		<form action="ShareRecipeServlet" method  = "post" id = "shareRecipeForm">
+			<h4>Recipe name</h4>
+			<input type = "text" name = "name"> <br><br>
+			<h4>Ingredients (for normal display of ingredients type as in example: Sugar,salt,pepper.)</h4>
+			<textarea rows="4" cols="150"></textarea> <br><br>
+			<h4>Description</h4>
+			<textarea rows="15" cols="150"></textarea> <br><br><br><br>
+			<input type = "submit" value = "Submit">
+			
+			<input type = "hidden" name = "user" value = "<%=name%>">
+		</form>
 	</div>
 </body>
 

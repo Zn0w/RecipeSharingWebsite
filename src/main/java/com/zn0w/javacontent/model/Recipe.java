@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Recipe {
 	
 	private ArrayList<String> ingredientsList = new ArrayList<String>();
-	private String id, description, name, authorName, authorLogin, ingredients;
+	private String id, description, name, authorLogin, ingredients;
 	
 	public void setID(String id) {
 		this.id = id;
@@ -77,14 +77,6 @@ public class Recipe {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
 	}
 
 	public String getAuthorLogin() {

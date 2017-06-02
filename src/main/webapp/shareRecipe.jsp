@@ -15,12 +15,12 @@
 	<%
 		Cookie cookies[] = request.getCookies();
 	
-		String name = "Guest";
+		String login = "Guest";
 		
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				if (cookies[i].getName().equals("username")) {
-					name = cookies[i].getValue();
+					login = cookies[i].getValue();
 					break;
 				}
 			}
@@ -31,25 +31,20 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/recipesMain.jsp">Recipes</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/shareRecipe.jsp">Share recipe</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/">About</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/about.jsp">About</a> &nbsp;
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=name%>
+		Logged as <%=login%>
 		
 		<%
-			if (!name.equals("Guest")) {
+			if (!login.equals("Guest")) {
 				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
 			}
 			else
 				out.println("<form action = 'login.jsp' method = 'post'><input type = 'submit' value = 'Login' align = 'right'></form>");
 		%>
 	</div>
-	
-	<%
-		if (name.equals("Guest"))
-			response.sendRedirect("login.jsp");
-	%>
 		
 	Share recipe
 	<br><br><br><br>
@@ -63,7 +58,7 @@
 			<textarea rows="15" cols="150"></textarea> <br><br><br><br>
 			<input type = "submit" value = "Submit">
 			
-			<input type = "hidden" name = "user" value = "<%=name%>">
+			<input type = "hidden" name = "user" value = "<%=login%>">
 		</form>
 	</div>
 </body>

@@ -11,12 +11,12 @@
 	<%
 		Cookie cookies[] = request.getCookies();
 	
-		String name = "Guest";
+		String login = "Guest";
 		
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				if (cookies[i].getName().equals("username")) {
-					name = cookies[i].getValue();
+					login = cookies[i].getValue();
 					break;
 				}
 			}
@@ -27,14 +27,14 @@
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/recipesMain.jsp">Recipes</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/shareRecipe.jsp">Share recipe</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/">About</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/about.jsp">About</a> &nbsp;
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=name%>
+		Logged as <%=login%>
 		
 		<%
-			if (!name.equals("Guest")) {
+			if (!login.equals("Guest")) {
 				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
 			}
 			else
@@ -48,10 +48,10 @@
 		<h1>Web-site where you can find other people's recipes or share your own recipes.</h1>
 		
 		<%
-			if (!name.equals("Guest"))
-				out.println("<h3>Welome, " + name + "</h3>");
+			if (!login.equals("Guest"))
+				out.println("<h3>Welome, " + login + "</h3>");
 			else
-				out.println("<h3>Welome, " + name + "</h3>" +
+				out.println("<h3>Welome, " + login + "</h3>" +
 						"<h1>Please, </h1>" +
 						"<form action='login.jsp'>" +
 						"<input type = 'submit' value = 'Login'>" +

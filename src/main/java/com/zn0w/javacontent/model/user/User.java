@@ -7,42 +7,49 @@ import com.zn0w.javacontent.model.Recipe;
 
 public class User {
 	
-	private String name, login, password;
+	private String login, password;
 	private ArrayList<Recipe> userRecipes = new ArrayList<Recipe>();
 	private ArrayList<Recipe> favouritedRecipes = new ArrayList<Recipe>();
 	
-	public User(String login, String name, String password) {
+	public User(String login, String password) {
 		this.login = login;
-		this.name = name;
 		this.password = password;
 	}
 	
-	public User(String login, String name, String password, String userFavouritesStr) {
+	public User(String login, String password, String userFavouritesStr) {
 		this.login = login;
-		this.name = name;
 		this.password = password;
+		
+		Model model = new Model();
 		
 		char[] userFavouritesDivided = null;
 		
 		if (userFavouritesStr != null)
 			userFavouritesDivided = userFavouritesStr.toCharArray();
 		
-		Model model = new Model();
-		model.loadRecipesInfo();
+		if (userFavouritesDivided != null) {
+			for (int i = 0; i < userFavouritesDivided.length; i++) {
+				if (userFavouritesDivided[i] == ' ')
+					continue;
+				else {
+					int id = Character.getNumericValue(userFavouritesDivided[i]);
+					System.out.println("numeric value is" + id);
+					
+					Recipe recipe = model.loadRecipe(id);
+					
+					if (recipe != null)
+						favouritedRecipes.add(recipe);
+				}
+			}
+		}
+		
+		//model.loadRecipesInfo();
 		
 		userRecipes = model.loadUserRecipes(login);
 		
 		for (int i = 0; i < userRecipes.size(); i++) {
 			System.out.println(userRecipes.get(i).getName());
 		}
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getLogin() {

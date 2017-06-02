@@ -28,7 +28,6 @@ public class Model {
 				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
 				recipe.setAuthorLogin(rs.getString(5));
-				recipe.setAuthorName(rs.getString(6));
 				
 				recipes.add(recipe);
 			}
@@ -47,14 +46,39 @@ public class Model {
 			ResultSet rs = statement.executeQuery("select * from recipes");
 			
 			while (rs.next()) {
-				if (rs.getString(2).equals(recipeName) && rs.getString(6).equals(author)) {
+				if (rs.getString(2).equals(recipeName)) {
 					Recipe recipe = new Recipe();
 					
 					recipe.setName(rs.getString(2));
 					recipe.setIngredients(rs.getString(3));
 					recipe.setDescription(rs.getString(4));
 					recipe.setAuthorLogin(rs.getString(5));
-					recipe.setAuthorName(rs.getString(6));
+					
+					return recipe;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Recipe loadRecipe(int id) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from recipes");
+			
+			while (rs.next()) {
+				if (rs.getInt(1) == id) {
+					Recipe recipe = new Recipe();
+					
+					recipe.setName(rs.getString(2));
+					recipe.setIngredients(rs.getString(3));
+					recipe.setDescription(rs.getString(4));
+					recipe.setAuthorLogin(rs.getString(5));
 					
 					return recipe;
 				}
@@ -115,7 +139,7 @@ public class Model {
 			
 			while (rs.next()) {
 				if (rs.getString(2).equals(login)) {
-					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4));
 					
 					return user;
 				}
@@ -144,7 +168,6 @@ public class Model {
 				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
 				recipe.setAuthorLogin(rs.getString(5));
-				recipe.setAuthorName(rs.getString(6));
 				
 				userRecipes.add(recipe);
 			}
@@ -175,32 +198,12 @@ public class Model {
 		return false;
 	}
 	
-	public boolean nameIsCreated(String name) {
-		DBConnector dbConnector = new DBConnector();
-		
-		try {
-			Statement statement = dbConnector.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from users");
-			
-			while (rs.next()) {
-				if (rs.getString(3).equals(name))
-					return true;
-				else
-					return false;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	
 	public void registerUser(User user) {
 		DBConnector dbConnector = new DBConnector();
 		
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
-			statement.executeUpdate("insert into users(user_login, user_name, user_password) values('"+user.getLogin()+"', '"+user.getName()+"', '"+user.getPassword()+"')");
+			statement.executeUpdate("insert into users(user_login, user_password) values('"+user.getLogin()+"', '"+user.getPassword()+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

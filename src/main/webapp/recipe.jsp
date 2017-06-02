@@ -15,12 +15,12 @@
 	<%
 		Cookie cookies[] = request.getCookies();
 	
-		String name = "Guest";
+		String login = "Guest";
 		
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				if (cookies[i].getName().equals("username")) {
-					name = cookies[i].getValue();
+					login = cookies[i].getValue();
 					break;
 				}
 			}
@@ -30,15 +30,15 @@
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
 		<a href = "http://localhost:8080/recipe-sharing-site/recipesMain.jsp">Recipes</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/">Share recipe</a> &nbsp;
-		<a href = "http://localhost:8080/recipe-sharing-site/">About</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/shareRecipe.jsp">Share recipe</a> &nbsp;
+		<a href = "http://localhost:8080/recipe-sharing-site/about.jsp">About</a> &nbsp;
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=name%>
+		Logged as <%=login%>
 		
 		<%
-			if (!name.equals("Guest")) {
+			if (!login.equals("Guest")) {
 				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
 			}
 			else
@@ -47,6 +47,7 @@
 	</div>
 		
 	Recipe
+	<br><br><br><br>
 		
 		<%
 			String recipeName = (String) request.getAttribute("recipeName");

@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Recipe Sharing</title>
+	<title>Recipe sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
 </head>
 
@@ -46,17 +46,20 @@
 		%>
 	</div>
 		
-	Recipes
+	Favorites
 	<br><br><br><br>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Find new recipes!</a></h3>
-	<p>Here you can find recipes that is shared by other users of this web-site.</p>
+	<form action="RecipeServlet" method = "post">
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/MyRecipesServlet">My recipes</a></h3>
-	<p>Here you can see recipes you have already shared.</p>
+	<%
+		String[][] recipeNames = (String[][]) request.getAttribute("recipeNames");
+		
+		for (int i = 0; i < recipeNames.length; i++) {
+			out.println("<input type = 'submit' value = '" + recipeNames[i][0] + " by " + recipeNames[i][1] + "' name = 'button name'> <br>");
+		}
+	%>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/FavouritedRecipesServlet">Favourited recipes</a></h3>
-	<p>Here you can see recipes that you have favorited.</p>
+	</form>
 </body>
 
 </html>

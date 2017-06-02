@@ -43,7 +43,7 @@ public class ResipeListServlet extends HttpServlet {
 			recipeInfo[i][0] = recipe.getName();
 			recipeInfo[i][1] = recipe.getIngredients();
 			recipeInfo[i][2] = recipe.getDescription();
-			recipeInfo[i][3] = recipe.getAuthorName();
+			recipeInfo[i][3] = recipe.getAuthorLogin();
 		}
 		
 		request.setAttribute("recipes", recipeInfo);

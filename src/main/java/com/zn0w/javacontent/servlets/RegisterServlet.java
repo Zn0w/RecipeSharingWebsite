@@ -39,26 +39,23 @@ public class RegisterServlet extends HttpServlet {
 		model = new Model();
 		
 		String login = request.getParameter("username");
-		String name = request.getParameter("name");
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		
 		String message = "";
 		
-		if (login.endsWith(" ") || name.endsWith(" ") || password1.endsWith(" ")) {
+		if (login.endsWith(" ") || password1.endsWith(" ")) {
 			message = "Do not put spaces after symbols!";
 		}
 		else if (!password1.equals(password2))
 			message = "Passwords don't match.";
-		else if ((!model.loginIsCreated(login)) && (!model.nameIsCreated(name))) {
-			User user = new User(login, name, password1);
+		else if ((!model.loginIsCreated(login))) {
+			User user = new User(login, password1);
 			model.registerUser(user);
 			message = "User has been succesfully created!";
 		}
 		else if (model.loginIsCreated(login))
 			message = "Your login already exists.";
-		else if (model.nameIsCreated(name))
-			message = "Your display name already exists.";
 		else
 			message = "Something went wrong.";
 		

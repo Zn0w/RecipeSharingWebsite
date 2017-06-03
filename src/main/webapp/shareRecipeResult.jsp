@@ -46,21 +46,22 @@
 		%>
 	</div>
 		
-	Share recipe
+	Share recipe result
 	<br><br><br><br>
-	<div align = "center">
-		<form action="ShareRecipeServlet" method  = "post" id = "shareRecipeForm">
-			<h4>Recipe name</h4>
-			<input type = "text" name = "name"> <br><br>
-			<h4>Ingredients (for normal display of ingredients type as in example: Sugar,salt,pepper.)</h4>
-			<textarea rows="4" cols="150" name = "ingredients" ></textarea> <br><br>
-			<h4>Description</h4>
-			<textarea rows="15" cols="150" name = "description"></textarea> <br><br><br><br>
-			<input type = "submit" value = "Submit">
-			
-			<input type = "hidden" name = "user" value = "<%=login%>">
-		</form>
-	</div>
+	
+	<%
+		String message = (String) request.getAttribute("message");
+	%>
+	
+	<h1><%=message%></h1>
+	
+	<%
+		if (message.equals("Recipe has been successfully shared.")) {
+			out.println("<h2><a href = 'http://localhost:8080/recipe-sharing-site/MyRecipesServlet'>Go to 'My recipes' page</a></h2>");
+		}
+		else
+			out.println("<h2><a href = 'http://localhost:8080/recipe-sharing-site/shareRecipe.jsp'>Try again</a></h2>");
+	%>
 </body>
 
 </html>

@@ -117,7 +117,7 @@ public class Model {
 			ResultSet rs = statement.executeQuery("select * from users");
 			
 			while (rs.next()) {
-				if (rs.getString(2).equals(login) && rs.getString(4).equals(password)) {
+				if (rs.getString(2).equals(login) && rs.getString(3).equals(password)) {
 					User user = new User(rs.getString(2), rs.getString(3), rs.getString(4));
 					
 					return user;
@@ -204,6 +204,35 @@ public class Model {
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
 			statement.executeUpdate("insert into users(user_login, user_password) values('"+user.getLogin()+"', '"+user.getPassword()+"')");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean recipeWithNameExists(String recipeName, String author) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from recipes");
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(recipeName) && rs.getString(5).equals(author))
+					return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public void saveNewRecipe(Recipe recipe) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			statement.executeUpdate("insert into recipes(recipe_name, recipe_ingridients, recipe_description, recipe_author_login) values('"+recipe.getName()+"', '"+recipe.getIngredients()+"', '"+recipe.getDescription()+"', '"+recipe.getAuthorLogin()+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

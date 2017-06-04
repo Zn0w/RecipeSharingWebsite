@@ -50,11 +50,36 @@
 	<br><br><br><br>
 		
 		<%
+			String favoritesStatus = (String) request.getAttribute("favoritesStatus");
+			System.out.println(favoritesStatus);
+			
 			String recipeName = (String) request.getAttribute("recipeName");
 			String author = (String) request.getAttribute("author");
 			String[] ingredients = (String[]) request.getAttribute("ingredients");
 			String description = (String) request.getAttribute("description");
 		%>
+		
+		<form action="FavoritesManagerServlet">
+			<input type = "hidden" name = "recipeName" value = "<%=recipeName%>">
+			<input type = "hidden" name = "author" value = "<%=author%>">
+			
+			<%
+				String command = null;
+				String buttonValue = null;
+				
+				if (favoritesStatus.equals("favourited")) {
+					command = "remove";
+					buttonValue = "Remove from favorites";
+				}
+				else if (favoritesStatus.equals("not favourited")) {
+					command = "add";
+					buttonValue = "Add to favorites";
+				}
+			%>
+			
+			<input type = "hidden" name = "command" value = "<%=command%>">
+			<input type = "submit" value = "<%=buttonValue%>">
+		</form>
 		
 		<h1><%=recipeName%></h1>
 		<h2>By <%=author%>'s recipe</h2>

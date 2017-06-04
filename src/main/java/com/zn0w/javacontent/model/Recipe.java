@@ -22,8 +22,6 @@ public class Recipe {
 	public void setIngredients(String ingridients) {
 		this.ingredients = ingridients;
 		
-		System.out.println("Ingredients: " + ingridients);
-		
 		String ingridient = "";
 		
 		for (int i = 0; i < ingridients.length(); i++) {
@@ -37,11 +35,6 @@ public class Recipe {
 			}
 			else 
 				ingridient += ingridients.charAt(i);
-		}
-		
-		System.out.println("___________________________\nTesting\n");
-		for (int i = 0; i < ingredientsList.size(); i++) {
-			System.out.println(ingredientsList.get(i));
 		}
 	}
 	

@@ -1,16 +1,17 @@
 package com.zn0w.javacontent.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.zn0w.javacontent.model.Model;
 import com.zn0w.javacontent.model.Recipe;
+import com.zn0w.javacontent.model.user.User;
 
 /**
  * Servlet implementation class RecipeServlet
@@ -85,6 +86,44 @@ public class RecipeServlet extends HttpServlet {
 		}
 		
 		System.out.println("description: " + description);
+		
+		// Favorites handling
+		Cookie cookies[] = request.getCookies();
+		
+		String login = null;
+		boolean recipeIsFavourited = false;
+		
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("username")) {
+					login = cookies[i].getValue();
+				}
+			}
+		}
+		
+		if (login != null) {
+			User user = model.loadUserFull(login);
+			
+			ArrayList<Recipe> recipes = user.getFavouritedRecipes();
+			
+			for (int i = 0; i < recipes.size(); i++) {
+				if (recipes.get(i).getID().equals(preferedRecipe.getID())) {
+					recipeIsFavourited = true;
+					break;
+				}
+			}
+		}
+		
+		String favoritesStatus = null;
+		
+		if (recipeIsFavourited)
+			favoritesStatus = "favourited";
+		else
+			favoritesStatus = "not favourited";
+		
+		System.out.println(favoritesStatus);
+		
+		request.setAttribute("favoritesStatus", favoritesStatus);
 		
 		request.setAttribute("recipeName", recipeName);
 		request.setAttribute("author", recipeAuthor);

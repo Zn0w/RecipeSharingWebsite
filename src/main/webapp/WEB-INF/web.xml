@@ -52,6 +52,12 @@
   	<description></description>
   	<servlet-class>com.zn0w.javacontent.servlets.ShareRecipeServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>FavoritesManagerServlet</servlet-name>
+  	<display-name>FavoritesManagerServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.zn0w.javacontent.servlets.FavoritesManagerServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
   	<url-pattern>/ResipeListServlet</url-pattern>
@@ -83,5 +89,9 @@
   <servlet-mapping>
   	<servlet-name>ShareRecipeServlet</servlet-name>
   	<url-pattern>/ShareRecipeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FavoritesManagerServlet</servlet-name>
+  	<url-pattern>/FavoritesManagerServlet</url-pattern>
   </servlet-mapping>
 </web-app>

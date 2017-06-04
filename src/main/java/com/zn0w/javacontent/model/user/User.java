@@ -43,8 +43,6 @@ public class User {
 			}
 		}
 		
-		//model.loadRecipesInfo();
-		
 		userRecipes = model.loadUserRecipes(login);
 		
 		for (int i = 0; i < userRecipes.size(); i++) {

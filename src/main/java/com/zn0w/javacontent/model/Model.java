@@ -49,6 +49,7 @@ public class Model {
 				if (rs.getString(2).equals(recipeName)) {
 					Recipe recipe = new Recipe();
 					
+					recipe.setID(rs.getString(1));
 					recipe.setName(rs.getString(2));
 					recipe.setIngredients(rs.getString(3));
 					recipe.setDescription(rs.getString(4));
@@ -75,6 +76,7 @@ public class Model {
 				if (rs.getInt(1) == id) {
 					Recipe recipe = new Recipe();
 					
+					recipe.setID(rs.getString(1));
 					recipe.setName(rs.getString(2));
 					recipe.setIngredients(rs.getString(3));
 					recipe.setDescription(rs.getString(4));

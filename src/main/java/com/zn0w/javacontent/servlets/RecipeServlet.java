@@ -107,7 +107,7 @@ public class RecipeServlet extends HttpServlet {
 			ArrayList<Recipe> recipes = user.getFavouritedRecipes();
 			
 			for (int i = 0; i < recipes.size(); i++) {
-				if (recipes.get(i).getID().equals(preferedRecipe.getID())) {
+				if (recipes.get(i).getID() == preferedRecipe.getID()) {
 					recipeIsFavourited = true;
 					break;
 				}

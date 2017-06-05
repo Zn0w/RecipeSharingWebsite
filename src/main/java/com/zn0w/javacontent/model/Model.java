@@ -23,7 +23,7 @@ public class Model {
 			while (rs.next()) {
 				Recipe recipe = new Recipe();
 				
-				recipe.setID(rs.getString(1));
+				recipe.setID(rs.getInt(1));
 				recipe.setName(rs.getString(2));
 				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
@@ -49,7 +49,7 @@ public class Model {
 				if (rs.getString(2).equals(recipeName)) {
 					Recipe recipe = new Recipe();
 					
-					recipe.setID(rs.getString(1));
+					recipe.setID(rs.getInt(1));
 					recipe.setName(rs.getString(2));
 					recipe.setIngredients(rs.getString(3));
 					recipe.setDescription(rs.getString(4));
@@ -76,7 +76,7 @@ public class Model {
 				if (rs.getInt(1) == id) {
 					Recipe recipe = new Recipe();
 					
-					recipe.setID(rs.getString(1));
+					recipe.setID(rs.getInt(1));
 					recipe.setName(rs.getString(2));
 					recipe.setIngredients(rs.getString(3));
 					recipe.setDescription(rs.getString(4));
@@ -165,7 +165,7 @@ public class Model {
 			while (rs.next()) {
 				Recipe recipe = new Recipe();
 				
-				recipe.setID(rs.getString(1));
+				recipe.setID(rs.getInt(1));
 				recipe.setName(rs.getString(2));
 				recipe.setIngredients(rs.getString(3));
 				recipe.setDescription(rs.getString(4));
@@ -235,6 +235,43 @@ public class Model {
 		try {
 			Statement statement = dbConnector.getConnection().createStatement();
 			statement.executeUpdate("insert into recipes(recipe_name, recipe_ingridients, recipe_description, recipe_author_login) values('"+recipe.getName()+"', '"+recipe.getIngredients()+"', '"+recipe.getDescription()+"', '"+recipe.getAuthorLogin()+"')");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteRecipe(Recipe recipe) {
+		DBConnector dbConnector = new DBConnector();
+		
+		Statement statement;
+		try {
+			statement = dbConnector.getConnection().createStatement();
+			statement.executeUpdate("delete from recipes where id = "+ recipe.getID() +"");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addRecipeToFavorites(Recipe recipe, User user) {
+		DBConnector dbConnector = new DBConnector();
+		
+		Statement getFavoritesListStatement;
+		Statement updateFavoritesListStatement;
+		
+		try {
+			getFavoritesListStatement = dbConnector.getConnection().createStatement();
+			ResultSet rs = getFavoritesListStatement.executeQuery("select * from users where user_login = "+ user.getLogin() +"");
+			
+			String userFavorites = null;
+			
+			while (rs.next()) {
+				userFavorites = rs.getString(4);
+			}
+			
+			userFavorites += Integer.toString(recipe.getID()) + " ";
+			
+			updateFavoritesListStatement = dbConnector.getConnection().createStatement();
+			updateFavoritesListStatement.executeUpdate("update users set user_favourites = userFavorites where user_login = "+ user.getLogin() +"");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

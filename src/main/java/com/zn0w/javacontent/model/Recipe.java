@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class Recipe {
 	
 	private ArrayList<String> ingredientsList = new ArrayList<String>();
-	private String id, description, name, authorLogin, ingredients;
+	private String description, name, authorLogin, ingredients;
+	private int id;
 	
-	public void setID(String id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 	
-	public String getID() {
+	public int getID() {
 		return id;
 	}
 	

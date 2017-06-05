@@ -28,18 +28,25 @@ public class User {
 			userFavouritesDivided = userFavouritesStr.toCharArray();
 		
 		if (userFavouritesDivided != null) {
+			String id = "";
+			
 			for (int i = 0; i < userFavouritesDivided.length; i++) {
-				if (userFavouritesDivided[i] == ' ')
-					continue;
-				else {
-					int id = Character.getNumericValue(userFavouritesDivided[i]);
-					System.out.println("numeric value is" + id);
-					
-					Recipe recipe = model.loadRecipe(id);
-					
-					if (recipe != null)
-						favouritedRecipes.add(recipe);
+				if (userFavouritesDivided[i] == ' ') {
+					if (!id.equals("")) {
+						Integer idInteger = Integer.parseInt(id);
+						
+						int idInt = idInteger;
+						
+						Recipe recipe = model.loadRecipe(idInt);
+						
+						if (recipe != null)
+							favouritedRecipes.add(recipe);
+						
+						id = "";
+					}
 				}
+				else
+					id += userFavouritesDivided[i];
 			}
 		}
 		

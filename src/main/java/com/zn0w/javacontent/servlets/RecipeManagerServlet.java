@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FavoritesManagerServlet
  */
-public class FavoritesManagerServlet extends HttpServlet {
+public class RecipeManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FavoritesManagerServlet() {
+    public RecipeManagerServlet() {
         super();
     }
 
@@ -23,11 +23,16 @@ public class FavoritesManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String login = request.getParameter("userLogin");
 		String recipeName = request.getParameter("recipeName");
 		String author = request.getParameter("author");
 		String command = request.getParameter("command");
 		
-		System.out.println("FavoritesManagerServlet: " + recipeName + "    " + author + "    command: " + command);
+		if (login.equals("Guest"))
+			response.sendRedirect("login.jsp");
+		else {
+			System.out.println("User: " + login + "    Recipe name: " + recipeName + "    Author name: " + author + "    Command: " + command);
+		}
 	}
 
 	/**

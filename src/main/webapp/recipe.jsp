@@ -51,7 +51,6 @@
 		
 		<%
 			String favoritesStatus = (String) request.getAttribute("favoritesStatus");
-			System.out.println(favoritesStatus);
 			
 			String recipeName = (String) request.getAttribute("recipeName");
 			String author = (String) request.getAttribute("author");
@@ -59,9 +58,10 @@
 			String description = (String) request.getAttribute("description");
 		%>
 		
-		<form action="FavoritesManagerServlet">
+		<form action="RecipeManagerServlet">
 			<input type = "hidden" name = "recipeName" value = "<%=recipeName%>">
 			<input type = "hidden" name = "author" value = "<%=author%>">
+			<input type = "hidden" name = "userLogin" value = "<%=login%>">
 			
 			<%
 				String command = null;
@@ -74,6 +74,10 @@
 				else if (favoritesStatus.equals("not favourited")) {
 					command = "add";
 					buttonValue = "Add to favorites";
+				}
+				else if (favoritesStatus.equals("owner")) {
+					command = "destroy";
+					buttonValue = "Delete recipe";
 				}
 			%>
 			

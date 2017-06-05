@@ -118,6 +118,8 @@ public class RecipeServlet extends HttpServlet {
 		
 		if (recipeIsFavourited)
 			favoritesStatus = "favourited";
+		else if (preferedRecipe.getAuthorLogin().equals(login))
+			favoritesStatus = "owner";
 		else
 			favoritesStatus = "not favourited";
 		

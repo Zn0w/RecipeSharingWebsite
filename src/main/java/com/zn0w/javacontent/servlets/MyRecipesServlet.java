@@ -48,7 +48,7 @@ public class MyRecipesServlet extends HttpServlet {
 		}
 		
 		if (login != null) {
-			User user = model.loadUserFull(login);
+			User user = model.loadUser(login);
 			
 			ArrayList<Recipe> myRecipes = user.getUserRecipes();
 			

@@ -42,7 +42,7 @@ public class RecipeManagerServlet extends HttpServlet {
 		}
 		
 		Recipe recipe = model.loadRecipe(recipeName, author);
-		User user = model.loadUserFull(login);
+		User user = model.loadUser(login);
 		
 		if (command.equals("add")) {
 			model.addRecipeToFavorites(recipe, user);

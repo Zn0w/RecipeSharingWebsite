@@ -102,7 +102,7 @@ public class RecipeServlet extends HttpServlet {
 		}
 		
 		if (login != null) {
-			User user = model.loadUserFull(login);
+			User user = model.loadUser(login);
 			
 			ArrayList<Recipe> recipes = user.getFavouritedRecipes();
 			
@@ -114,18 +114,18 @@ public class RecipeServlet extends HttpServlet {
 			}
 		}
 		
-		String favoritesStatus = null;
+		String relationshipStatus = null;
 		
 		if (recipeIsFavourited)
-			favoritesStatus = "favourited";
+			relationshipStatus = "favourited";
 		else if (preferedRecipe.getAuthorLogin().equals(login))
-			favoritesStatus = "owner";
+			relationshipStatus = "owner";
 		else
-			favoritesStatus = "not favourited";
+			relationshipStatus = "not favourited";
 		
-		System.out.println(favoritesStatus);
+		System.out.println(relationshipStatus);
 		
-		request.setAttribute("favoritesStatus", favoritesStatus);
+		request.setAttribute("relationshipStatus", relationshipStatus);
 		
 		request.setAttribute("recipeName", recipeName);
 		request.setAttribute("author", recipeAuthor);

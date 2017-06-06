@@ -50,7 +50,7 @@
 	<br><br><br><br>
 		
 		<%
-			String favoritesStatus = (String) request.getAttribute("favoritesStatus");
+			String relationshipStatus = (String) request.getAttribute("relationshipStatus");
 			
 			String recipeName = (String) request.getAttribute("recipeName");
 			String author = (String) request.getAttribute("author");
@@ -67,15 +67,15 @@
 				String command = null;
 				String buttonValue = null;
 				
-				if (favoritesStatus.equals("favourited")) {
+				if (relationshipStatus.equals("favourited")) {
 					command = "remove";
 					buttonValue = "Remove from favorites";
 				}
-				else if (favoritesStatus.equals("not favourited")) {
+				else if (relationshipStatus.equals("not favourited")) {
 					command = "add";
 					buttonValue = "Add to favorites";
 				}
-				else if (favoritesStatus.equals("owner")) {
+				else if (relationshipStatus.equals("owner")) {
 					command = "destroy";
 					buttonValue = "Delete recipe";
 				}

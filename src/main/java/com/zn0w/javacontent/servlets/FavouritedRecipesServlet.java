@@ -45,7 +45,7 @@ public class FavouritedRecipesServlet extends HttpServlet {
 		}
 		
 		if (login != null) {
-			User user = model.loadUserFull(login);
+			User user = model.loadUser(login);
 			
 			ArrayList<Recipe> favouritedRecipes = user.getFavouritedRecipes();
 			

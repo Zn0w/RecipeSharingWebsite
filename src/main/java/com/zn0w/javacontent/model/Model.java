@@ -172,7 +172,7 @@ public class Model {
 		return null;
 	}
 	
-	public User loadUserFull(String login) {
+	public User loadUser(String login) {
 		DBConnector dbConnector = new DBConnector();
 		
 		try {

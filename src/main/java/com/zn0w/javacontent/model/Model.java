@@ -35,6 +35,14 @@ public class Model {
 			System.out.println("Recipes from database have been loaded.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -60,6 +68,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return null;
@@ -87,6 +103,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return null;
@@ -108,6 +132,14 @@ public class Model {
 			System.out.println("Users from database have been loaded.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -127,6 +159,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return null;
@@ -148,6 +188,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return null;
@@ -177,6 +225,14 @@ public class Model {
 			System.out.println("User recipes have been loaded.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return userRecipes;
@@ -195,6 +251,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return false;
@@ -208,6 +272,14 @@ public class Model {
 			statement.executeUpdate("insert into users(user_login, user_password) values('"+user.getLogin()+"', '"+user.getPassword()+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -224,6 +296,14 @@ public class Model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return false;
@@ -237,6 +317,14 @@ public class Model {
 			statement.executeUpdate("insert into recipes(recipe_name, recipe_ingridients, recipe_description, recipe_author_login) values('"+recipe.getName()+"', '"+recipe.getIngredients()+"', '"+recipe.getDescription()+"', '"+recipe.getAuthorLogin()+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -246,9 +334,17 @@ public class Model {
 		Statement statement;
 		try {
 			statement = dbConnector.getConnection().createStatement();
-			statement.executeUpdate("delete from recipes where id = "+ recipe.getID() +"");
+			statement.executeUpdate("delete from recipes where id = '"+ recipe.getID() +"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -260,7 +356,7 @@ public class Model {
 		
 		try {
 			getFavoritesListStatement = dbConnector.getConnection().createStatement();
-			ResultSet rs = getFavoritesListStatement.executeQuery("select * from users where user_login = "+ user.getLogin() +"");
+			ResultSet rs = getFavoritesListStatement.executeQuery("select * from users where user_login = '"+ user.getLogin() +"'");
 			
 			String userFavorites = null;
 			
@@ -271,9 +367,17 @@ public class Model {
 			userFavorites += recipe.getID() + " ";
 			
 			updateFavoritesListStatement = dbConnector.getConnection().createStatement();
-			updateFavoritesListStatement.executeUpdate("update users set user_favourites = "+ userFavorites +" where user_login = "+ user.getLogin() +"");
+			updateFavoritesListStatement.executeUpdate("update users set user_favourites = '"+ userFavorites +"' where user_login = '"+ user.getLogin() +"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -297,12 +401,20 @@ public class Model {
 			System.out.println(userFavoritesUpdated);
 			
 			if (userFavoritesUpdated != "") {
-				statement.executeUpdate("update users set user_favourites = "+ userFavoritesUpdated +" where user_login = "+ user.getLogin() +"");
+				statement.executeUpdate("update users set user_favourites = '"+ userFavoritesUpdated +"' where user_login = '"+ user.getLogin() +"'");
 			}
 			else
 				System.out.println("User favorites is blank.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (dbConnector != null) {
+				try {
+					dbConnector.getConnection().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

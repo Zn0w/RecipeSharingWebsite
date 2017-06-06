@@ -268,10 +268,39 @@ public class Model {
 				userFavorites = rs.getString(4);
 			}
 			
-			userFavorites += Integer.toString(recipe.getID()) + " ";
+			userFavorites += recipe.getID() + " ";
 			
 			updateFavoritesListStatement = dbConnector.getConnection().createStatement();
-			updateFavoritesListStatement.executeUpdate("update users set user_favourites = userFavorites where user_login = "+ user.getLogin() +"");
+			updateFavoritesListStatement.executeUpdate("update users set user_favourites = "+ userFavorites +" where user_login = "+ user.getLogin() +"");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeRecipeFromFavorites(Recipe recipe, User user) {
+		DBConnector dbConnector = new DBConnector();
+		
+		try {
+			Statement statement = dbConnector.getConnection().createStatement();
+			
+			ArrayList<Recipe> userFavorites = user.getFavouritedRecipes();
+			int recipeId = recipe.getID();
+			
+			String userFavoritesUpdated = "";
+			
+			for (int i = 0; i < userFavorites.size(); i++) {
+				if (userFavorites.get(i).getID() != recipeId) {
+					userFavoritesUpdated += userFavorites.get(i).getID() + " ";
+				}
+			}
+			
+			System.out.println(userFavoritesUpdated);
+			
+			if (userFavoritesUpdated != "") {
+				statement.executeUpdate("update users set user_favourites = "+ userFavoritesUpdated +" where user_login = "+ user.getLogin() +"");
+			}
+			else
+				System.out.println("User favorites is blank.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

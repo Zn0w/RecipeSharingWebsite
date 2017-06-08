@@ -39,22 +39,22 @@ public class RecipeManagerServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		else {
 			System.out.println("User: " + login + "    Recipe name: " + recipeName + "    Author name: " + author + "    Command: " + command);
+			
+			Recipe recipe = model.loadRecipe(recipeName, author);
+			User user = model.loadUser(login);
+			
+			if (command.equals("add")) {
+				model.addRecipeToFavorites(recipe, user);
+			}
+			else if (command.equals("remove")) {
+				model.removeRecipeFromFavorites(recipe, user);
+			}
+			else if (command.equals("destroy")) {
+				model.deleteRecipe(recipe);
+			}
+			
+			response.sendRedirect("recipesMain.jsp");
 		}
-		
-		Recipe recipe = model.loadRecipe(recipeName, author);
-		User user = model.loadUser(login);
-		
-		if (command.equals("add")) {
-			model.addRecipeToFavorites(recipe, user);
-		}
-		else if (command.equals("remove")) {
-			model.removeRecipeFromFavorites(recipe, user);
-		}
-		else if (command.equals("destroy")) {
-			model.deleteRecipe(recipe);
-		}
-		
-		response.sendRedirect("recipesMain.jsp");
 	}
 
 	/**

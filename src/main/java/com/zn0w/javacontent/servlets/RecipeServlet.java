@@ -19,11 +19,7 @@ import com.zn0w.javacontent.model.user.User;
 public class RecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model = new Model();
-	private String recipeName = "";
-	private String recipeAuthor = "";
-	private String[] ingredients = null;
-	private String description = "";
+	private Model model;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,13 +35,33 @@ public class RecipeServlet extends HttpServlet {
 		model = new Model();
 		
 		String bn = request.getParameter("button name");
-		getRecipeNameAndAuthor(bn);
+		
+		String recipeName = getRecipeName(bn);
+		String recipeAuthor = getRecipeAuthor(bn);
+		
+		System.out.println(recipeName + "|" + recipeAuthor);
+		
+		String[] ingredients = null;
+		String description = "";
 		
 		Recipe preferedRecipe = model.loadRecipe(recipeName, recipeAuthor);
-		loadRecipeInfo(preferedRecipe);
+		if (preferedRecipe != null) {
+			ingredients = preferedRecipe.getIngredientsArray();
+			description = preferedRecipe.getDescription();
+		}
+		else {
+			System.out.println("ERROR: recipe object is null");
+		}
 		
-		String relationshipStatus = getRelationshipStatus(request, response, preferedRecipe);
+		String login = getLogin(request, response);
 		
+		String relationshipStatus = null;
+		if (login == null) {
+			relationshipStatus = "not favourited";
+		}
+		else if (login != null && preferedRecipe != null) {
+			relationshipStatus = getRelationshipStatus(login, preferedRecipe);
+		}
 		
 		request.setAttribute("relationshipStatus", relationshipStatus);
 		
@@ -57,46 +73,78 @@ public class RecipeServlet extends HttpServlet {
 		request.getRequestDispatcher("recipe.jsp").forward(request, response);
 	}
 	
-	private void getRecipeNameAndAuthor(String sourceText) {
-		boolean nameIsFound = false;
-		
-		int authorNameIndex = 0;
+	private String getRecipeName(String sourceText) {
+		String recipeName = "";
 		
 		for (int i = 0; i < sourceText.length(); i++) {
-			if (nameIsFound) {
-				if (authorNameIndex == i) {
-					recipeAuthor += sourceText.charAt(i);
-					authorNameIndex += 1;
-				}
+			if (sourceText.charAt(i) == ' ' && sourceText.charAt(i + 1) == 'b' && sourceText.charAt(i + 2) == 'y' && sourceText.charAt(i + 3) == ' ') {
+				break;
 			}
 			
-			if (!nameIsFound) {
-				if (sourceText.charAt(i) == ' ' && sourceText.charAt(i + 1) == 'b' && sourceText.charAt(i + 2) == 'y' && sourceText.charAt(i + 3) == ' ') {
-					authorNameIndex = i + 4;
-					nameIsFound = true;
-					continue;
-				}
-				
-				recipeName += sourceText.charAt(i);
+			recipeName += sourceText.charAt(i);
+		}
+		
+		return recipeName;
+	}
+	
+	private String getRecipeAuthor(String sourceText) {
+		String recipeAuthor = "";
+		
+		boolean startPointFound = false;
+		
+		for (int i = 0; i < sourceText.length(); i++) {
+			if (i > 3 && sourceText.charAt(i - 3) == ' ' && sourceText.charAt(i - 2) == 'b' && sourceText.charAt(i - 1) == 'y' && sourceText.charAt(i) == ' ') {
+				startPointFound = true;
+				continue;
+			}
+			
+			if (startPointFound) {
+				recipeAuthor += sourceText.charAt(i);
 			}
 		}
 		
-		System.out.println(recipeName + recipeAuthor);
+		return recipeAuthor;
 	}
 	
 	private void loadRecipeInfo(Recipe recipe) {
 		if (recipe != null) {
-			ingredients = recipe.getIngredientsArray();
-			description = recipe.getDescription();
+			String[] ingredients = recipe.getIngredientsArray();
+			String description = recipe.getDescription();
 		}
 		else {
 			System.out.println("ERROR: recipe object is null");
 		}
-		
-		System.out.println("description: " + description);
 	}
 	
-	private String getRelationshipStatus(HttpServletRequest request, HttpServletResponse response, Recipe recipe) {
+	private String getRelationshipStatus(String login, Recipe recipe) {
+		String relationshipStatus = null;
+		
+		boolean recipeIsFavourited = false;
+		
+		User user = model.loadUser(login);
+		
+		ArrayList<Recipe> recipes = user.getFavouritedRecipes();
+		
+		for (int i = 0; i < recipes.size(); i++) {
+			if (recipes.get(i).getID() == recipe.getID()) {
+				recipeIsFavourited = true;
+				break;
+			}
+		}	
+		
+		if (recipeIsFavourited)
+			relationshipStatus = "favourited";
+		else if (recipe.getAuthorLogin().equals(login))
+			relationshipStatus = "owner";
+		else
+			relationshipStatus = "not favourited";
+		
+		System.out.println(relationshipStatus);
+		
+		return relationshipStatus;
+	}
+	
+	private String getLogin(HttpServletRequest request, HttpServletResponse response) {
 		Cookie cookies[] = request.getCookies();
 		
 		String login = null;
@@ -110,31 +158,7 @@ public class RecipeServlet extends HttpServlet {
 			}
 		}
 		
-		if (login != null) {
-			User user = model.loadUser(login);
-			
-			ArrayList<Recipe> recipes = user.getFavouritedRecipes();
-			
-			for (int i = 0; i < recipes.size(); i++) {
-				if (recipes.get(i).getID() == recipe.getID()) {
-					recipeIsFavourited = true;
-					break;
-				}
-			}
-		}
-		
-		String relationshipStatus = null;
-		
-		if (recipeIsFavourited)
-			relationshipStatus = "favourited";
-		else if (recipe.getAuthorLogin().equals(login))
-			relationshipStatus = "owner";
-		else
-			relationshipStatus = "not favourited";
-		
-		System.out.println(relationshipStatus);
-		
-		return relationshipStatus;
+		return login;
 	}
 
 }

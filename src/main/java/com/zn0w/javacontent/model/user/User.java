@@ -17,6 +17,8 @@ public class User {
 	}
 	
 	public User(String login, String password, String userFavouritesStr) {
+		System.out.println("Favorites: " + userFavouritesStr);
+		
 		this.login = login;
 		this.password = password;
 		
@@ -33,9 +35,9 @@ public class User {
 			for (int i = 0; i < userFavouritesDivided.length; i++) {
 				if (userFavouritesDivided[i] == ' ') {
 					if (!id.equals("")) {
-						Integer idInteger = Integer.parseInt(id);
+						System.out.println("ID: " + id);
 						
-						int idInt = idInteger;
+						int idInt = Integer.parseInt(id);
 						
 						Recipe recipe = model.loadRecipe(idInt);
 						

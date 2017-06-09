@@ -58,6 +58,7 @@
   	<description></description>
   	<servlet-class>com.zn0w.javacontent.servlets.RecipeManagerServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
   	<url-pattern>/ResipeListServlet</url-pattern>

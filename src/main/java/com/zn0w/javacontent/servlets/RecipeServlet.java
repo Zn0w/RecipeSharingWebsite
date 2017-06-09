@@ -19,7 +19,11 @@ import com.zn0w.javacontent.model.user.User;
 public class RecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
+	private Model model = new Model();
+	private String recipeName = "";
+	private String recipeAuthor = "";
+	private String[] ingredients = null;
+	private String description = "";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,65 +33,70 @@ public class RecipeServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		model = new Model();
 		
 		String bn = request.getParameter("button name");
+		getRecipeNameAndAuthor(bn);
 		
-		// Getting name of the recipe
-		String recipeName = "";
+		Recipe preferedRecipe = model.loadRecipe(recipeName, recipeAuthor);
+		loadRecipeInfo(preferedRecipe);
+		
+		String relationshipStatus = getRelationshipStatus(request, response, preferedRecipe);
+		
+		
+		request.setAttribute("relationshipStatus", relationshipStatus);
+		
+		request.setAttribute("recipeName", recipeName);
+		request.setAttribute("author", recipeAuthor);
+		request.setAttribute("ingredients", ingredients);
+		request.setAttribute("description", description);
+		
+		request.getRequestDispatcher("recipe.jsp").forward(request, response);
+	}
+	
+	private void getRecipeNameAndAuthor(String sourceText) {
 		boolean nameIsFound = false;
 		
-		String recipeAuthor = "";
 		int authorNameIndex = 0;
 		
-		for (int i = 0; i < bn.length(); i++) {
+		for (int i = 0; i < sourceText.length(); i++) {
 			if (nameIsFound) {
 				if (authorNameIndex == i) {
-					recipeAuthor += bn.charAt(i);
+					recipeAuthor += sourceText.charAt(i);
 					authorNameIndex += 1;
 				}
 			}
 			
 			if (!nameIsFound) {
-				if (bn.charAt(i) == ' ' && bn.charAt(i + 1) == 'b' && bn.charAt(i + 2) == 'y' && bn.charAt(i + 3) == ' ') {
+				if (sourceText.charAt(i) == ' ' && sourceText.charAt(i + 1) == 'b' && sourceText.charAt(i + 2) == 'y' && sourceText.charAt(i + 3) == ' ') {
 					authorNameIndex = i + 4;
 					nameIsFound = true;
 					continue;
 				}
 				
-				recipeName += bn.charAt(i);
+				recipeName += sourceText.charAt(i);
 			}
 		}
 		
 		System.out.println(recipeName + recipeAuthor);
-		
-		// Getting recipe
-		Recipe preferedRecipe = model.loadRecipe(recipeName, recipeAuthor);
-		
-		String[] ingredients = null;
-		String description = "";
-		
-		if (preferedRecipe != null) {
-			ingredients = preferedRecipe.getIngredientsArray();
-			description = preferedRecipe.getDescription();
+	}
+	
+	private void loadRecipeInfo(Recipe recipe) {
+		if (recipe != null) {
+			ingredients = recipe.getIngredientsArray();
+			description = recipe.getDescription();
 		}
 		else {
 			System.out.println("ERROR: recipe object is null");
 		}
 		
 		System.out.println("description: " + description);
-		
-		// Favorites handling
+	}
+	
+	private String getRelationshipStatus(HttpServletRequest request, HttpServletResponse response, Recipe recipe) {
 		Cookie cookies[] = request.getCookies();
 		
 		String login = null;
@@ -107,7 +116,7 @@ public class RecipeServlet extends HttpServlet {
 			ArrayList<Recipe> recipes = user.getFavouritedRecipes();
 			
 			for (int i = 0; i < recipes.size(); i++) {
-				if (recipes.get(i).getID() == preferedRecipe.getID()) {
+				if (recipes.get(i).getID() == recipe.getID()) {
 					recipeIsFavourited = true;
 					break;
 				}
@@ -118,21 +127,14 @@ public class RecipeServlet extends HttpServlet {
 		
 		if (recipeIsFavourited)
 			relationshipStatus = "favourited";
-		else if (preferedRecipe.getAuthorLogin().equals(login))
+		else if (recipe.getAuthorLogin().equals(login))
 			relationshipStatus = "owner";
 		else
 			relationshipStatus = "not favourited";
 		
 		System.out.println(relationshipStatus);
 		
-		request.setAttribute("relationshipStatus", relationshipStatus);
-		
-		request.setAttribute("recipeName", recipeName);
-		request.setAttribute("author", recipeAuthor);
-		request.setAttribute("ingredients", ingredients);
-		request.setAttribute("description", description);
-		
-		request.getRequestDispatcher("recipe.jsp").forward(request, response);
+		return relationshipStatus;
 	}
 
 }

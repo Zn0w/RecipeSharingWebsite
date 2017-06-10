@@ -1,12 +1,12 @@
-package com.zn0w.javacontent.model;
+package com.zn0w.javacontent.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.zn0w.javacontent.db.DBConnector;
-import com.zn0w.javacontent.model.user.User;
+import com.zn0w.javacontent.domain.Recipe;
+import com.zn0w.javacontent.domain.User;
 
 public class Model {
 	
@@ -351,23 +351,19 @@ public class Model {
 	public void addRecipeToFavorites(Recipe recipe, User user) {
 		DBConnector dbConnector = new DBConnector();
 		
-		Statement getFavoritesListStatement;
-		Statement updateFavoritesListStatement;
+		Statement statement;
+		
+		ArrayList<Recipe> favorites = user.getFavouritedRecipes();
+		favorites.add(recipe);
+		
+		String favoritesStr = "";
+		for (int i = 0; i < favorites.size(); i++) {
+			favoritesStr += favorites.get(i).getID() + " ";
+		}
 		
 		try {
-			getFavoritesListStatement = dbConnector.getConnection().createStatement();
-			ResultSet rs = getFavoritesListStatement.executeQuery("select * from users where user_login = '"+ user.getLogin() +"'");
-			
-			String userFavorites = null;
-			
-			while (rs.next()) {
-				userFavorites = rs.getString(4);
-			}
-			
-			userFavorites += recipe.getID() + " ";
-			
-			updateFavoritesListStatement = dbConnector.getConnection().createStatement();
-			updateFavoritesListStatement.executeUpdate("update users set user_favourites = '"+ userFavorites +"' where user_login = '"+ user.getLogin() +"'");
+			statement = dbConnector.getConnection().createStatement();
+			statement.executeUpdate("update users set user_favourites = '" + favoritesStr + "' where user_login = '" + user.getLogin() + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

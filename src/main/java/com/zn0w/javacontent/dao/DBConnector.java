@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.db;
+package com.zn0w.javacontent.dao;
 
 import java.sql.Connection;
 import java.sql.Driver;

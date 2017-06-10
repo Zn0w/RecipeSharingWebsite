@@ -1,9 +1,8 @@
-package com.zn0w.javacontent.model.user;
+package com.zn0w.javacontent.domain;
 
 import java.util.ArrayList;
 
-import com.zn0w.javacontent.model.Model;
-import com.zn0w.javacontent.model.Recipe;
+import com.zn0w.javacontent.dao.Model;
 
 public class User {
 	
@@ -24,12 +23,9 @@ public class User {
 		
 		Model model = new Model();
 		
-		char[] userFavouritesDivided = null;
-		
-		if (userFavouritesStr != null)
-			userFavouritesDivided = userFavouritesStr.toCharArray();
-		
-		if (userFavouritesDivided != null) {
+		if (userFavouritesStr != null) {
+			char[] userFavouritesDivided = userFavouritesStr.toCharArray();
+			
 			String id = "";
 			
 			for (int i = 0; i < userFavouritesDivided.length; i++) {

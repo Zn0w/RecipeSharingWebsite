@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.model.Model;
-import com.zn0w.javacontent.model.Recipe;
-import com.zn0w.javacontent.model.user.User;
+import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.domain.Recipe;
+import com.zn0w.javacontent.domain.User;
 
 /**
  * Servlet implementation class FavoritesManagerServlet
@@ -55,13 +55,6 @@ public class RecipeManagerServlet extends HttpServlet {
 			
 			response.sendRedirect("recipesMain.jsp");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 
 }

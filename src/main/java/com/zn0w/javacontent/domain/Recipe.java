@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.model;
+package com.zn0w.javacontent.domain;
 
 import java.util.ArrayList;
 

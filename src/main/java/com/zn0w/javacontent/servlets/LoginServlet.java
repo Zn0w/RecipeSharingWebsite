@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.model.Model;
-import com.zn0w.javacontent.model.user.User;
+import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.domain.User;
 
 /**
  * Servlet implementation class LoginServlet

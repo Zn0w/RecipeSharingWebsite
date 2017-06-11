@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.RecipeModel;
 import com.zn0w.javacontent.domain.Recipe;
 
 /**
@@ -34,7 +34,7 @@ public class ShareRecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Model model = new Model();
+		RecipeModel recipeModel = new RecipeModel();
 		
 		String name = request.getParameter("name");
 		String ingredients = request.getParameter("ingredients");
@@ -45,7 +45,7 @@ public class ShareRecipeServlet extends HttpServlet {
 		
 		if (name.equals("") || description.equals(""))
 			message = "You mustn't leave name or description field blank.";
-		else if (!model.recipeWithNameExists(request.getParameter("name"), request.getParameter("user"))) {
+		else if (!recipeModel.recipeWithNameExists(request.getParameter("name"), request.getParameter("user"))) {
 			Recipe recipe = new Recipe();
 			
 			recipe.setName(request.getParameter("name"));
@@ -53,7 +53,7 @@ public class ShareRecipeServlet extends HttpServlet {
 			recipe.setDescription(request.getParameter("description"));
 			recipe.setAuthorLogin(request.getParameter("user"));
 			
-			model.saveNewRecipe(recipe);
+			recipeModel.saveNewRecipe(recipe);
 			
 			message = "Recipe has been successfully shared.";
 		}

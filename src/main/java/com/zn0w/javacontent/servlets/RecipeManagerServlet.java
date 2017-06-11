@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.RecipeModel;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.Recipe;
 import com.zn0w.javacontent.domain.User;
 
@@ -33,24 +34,25 @@ public class RecipeManagerServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		String command = request.getParameter("command");
 		
-		Model model = new Model();
+		RecipeModel recipeModel = new RecipeModel();
+		UserModel userModel = new UserModel();
 		
 		if (login.equals("Guest"))
 			response.sendRedirect("login.jsp");
 		else {
 			System.out.println("User: " + login + "    Recipe name: " + recipeName + "    Author name: " + author + "    Command: " + command);
 			
-			Recipe recipe = model.loadRecipe(recipeName, author);
-			User user = model.loadUser(login);
+			Recipe recipe = recipeModel.loadRecipe(recipeName, author);
+			User user = userModel.loadUser(login);
 			
 			if (command.equals("add")) {
-				model.addRecipeToFavorites(recipe, user);
+				recipeModel.addRecipeToFavorites(recipe, user);
 			}
 			else if (command.equals("remove")) {
-				model.removeRecipeFromFavorites(recipe, user);
+				recipeModel.removeRecipeFromFavorites(recipe, user);
 			}
 			else if (command.equals("destroy")) {
-				model.deleteRecipe(recipe);
+				recipeModel.deleteRecipe(recipe);
 			}
 			
 			response.sendRedirect("recipesMain.jsp");

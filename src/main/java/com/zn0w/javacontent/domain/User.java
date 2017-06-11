@@ -2,7 +2,8 @@ package com.zn0w.javacontent.domain;
 
 import java.util.ArrayList;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.RecipeModel;
+import com.zn0w.javacontent.dao.UserModel;
 
 public class User {
 	
@@ -21,7 +22,8 @@ public class User {
 		this.login = login;
 		this.password = password;
 		
-		Model model = new Model();
+		RecipeModel recipeModel = new RecipeModel();
+		UserModel userModel = new UserModel();
 		
 		if (userFavouritesStr != null) {
 			char[] userFavouritesDivided = userFavouritesStr.toCharArray();
@@ -35,7 +37,7 @@ public class User {
 						
 						int idInt = Integer.parseInt(id);
 						
-						Recipe recipe = model.loadRecipe(idInt);
+						Recipe recipe = recipeModel.loadRecipe(idInt);
 						
 						if (recipe != null)
 							favouritedRecipes.add(recipe);
@@ -48,7 +50,7 @@ public class User {
 			}
 		}
 		
-		userRecipes = model.loadUserRecipes(login);
+		userRecipes = userModel.loadUserRecipes(login);
 		
 		for (int i = 0; i < userRecipes.size(); i++) {
 			System.out.println(userRecipes.get(i).getName());

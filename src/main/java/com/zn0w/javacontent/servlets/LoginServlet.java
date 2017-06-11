@@ -1,7 +1,6 @@
 package com.zn0w.javacontent.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.User;
 
 /**
@@ -18,8 +17,6 @@ import com.zn0w.javacontent.domain.User;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,15 +35,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		model = new Model();
+		UserModel userModel = new UserModel();
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		User preferedUser = null;
 		
-		if (model.loginIsCreated(username)) {
-			preferedUser = model.loadUser(username, password);
+		if (userModel.loginIsCreated(username)) {
+			preferedUser = userModel.loadUser(username, password);
 		}
 		else {
 				System.out.println("User with this username doesn't exist.");

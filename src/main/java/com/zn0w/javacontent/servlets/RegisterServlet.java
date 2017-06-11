@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.User;
 
 /**
@@ -16,8 +16,6 @@ import com.zn0w.javacontent.domain.User;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		model = new Model();
+		UserModel userModel = new UserModel();
 		
 		String login = request.getParameter("username");
 		String password1 = request.getParameter("password1");
@@ -49,12 +47,12 @@ public class RegisterServlet extends HttpServlet {
 		}
 		else if (!password1.equals(password2))
 			message = "Passwords don't match.";
-		else if ((!model.loginIsCreated(login))) {
+		else if ((!userModel.loginIsCreated(login))) {
 			User user = new User(login, password1);
-			model.registerUser(user);
+			userModel.registerUser(user);
 			message = "User has been succesfully created!";
 		}
-		else if (model.loginIsCreated(login))
+		else if (userModel.loginIsCreated(login))
 			message = "Your login already exists.";
 		else
 			message = "Something went wrong.";

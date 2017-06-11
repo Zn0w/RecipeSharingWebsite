@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.Recipe;
 import com.zn0w.javacontent.domain.User;
 
@@ -19,8 +19,6 @@ import com.zn0w.javacontent.domain.User;
 public class MyRecipesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +30,7 @@ public class MyRecipesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		model = new Model();
+		UserModel userModel = new UserModel();
 		
 		Cookie cookies[] = request.getCookies();
 		
@@ -48,7 +46,7 @@ public class MyRecipesServlet extends HttpServlet {
 		}
 		
 		if (login != null) {
-			User user = model.loadUser(login);
+			User user = userModel.loadUser(login);
 			
 			ArrayList<Recipe> myRecipes = user.getUserRecipes();
 			

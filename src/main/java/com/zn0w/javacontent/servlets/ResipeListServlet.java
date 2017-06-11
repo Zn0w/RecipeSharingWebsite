@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.RecipeModel;
 import com.zn0w.javacontent.domain.Recipe;
 
 /**
@@ -17,8 +17,6 @@ import com.zn0w.javacontent.domain.Recipe;
 public class ResipeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,10 +28,10 @@ public class ResipeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		model = new Model();
-		model.loadRecipesInfo();
+		RecipeModel recipeModel = new RecipeModel();
+		recipeModel.loadRecipesInfo();
 		
-		ArrayList<Recipe> recipes = model.getRecipes();
+		ArrayList<Recipe> recipes = recipeModel.getRecipes();
 		
 		String[][] recipeInfo = new String[recipes.size()][4];
 		

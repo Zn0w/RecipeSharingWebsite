@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.RecipeModel;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.Recipe;
 import com.zn0w.javacontent.domain.User;
 
@@ -19,8 +20,6 @@ import com.zn0w.javacontent.domain.User;
 public class RecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Model model;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +31,7 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		model = new Model();
+		RecipeModel recipeModel = new RecipeModel();
 		
 		String bn = request.getParameter("button name");
 		
@@ -44,7 +43,7 @@ public class RecipeServlet extends HttpServlet {
 		String[] ingredients = null;
 		String description = "";
 		
-		Recipe preferedRecipe = model.loadRecipe(recipeName, recipeAuthor);
+		Recipe preferedRecipe = recipeModel.loadRecipe(recipeName, recipeAuthor);
 		if (preferedRecipe != null) {
 			ingredients = preferedRecipe.getIngredientsArray();
 			description = preferedRecipe.getDescription();
@@ -121,7 +120,8 @@ public class RecipeServlet extends HttpServlet {
 		
 		boolean recipeIsFavourited = false;
 		
-		User user = model.loadUser(login);
+		UserModel userModel = new UserModel();
+		User user = userModel.loadUser(login);
 		
 		ArrayList<Recipe> recipes = user.getFavouritedRecipes();
 		

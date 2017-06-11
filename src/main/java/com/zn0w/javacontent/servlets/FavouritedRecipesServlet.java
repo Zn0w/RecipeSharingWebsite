@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.Model;
+import com.zn0w.javacontent.dao.UserModel;
 import com.zn0w.javacontent.domain.Recipe;
 import com.zn0w.javacontent.domain.User;
 
@@ -30,7 +30,7 @@ public class FavouritedRecipesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Model model = new Model();
+		UserModel userModel = new UserModel();
 		
 		Cookie cookies[] = request.getCookies();
 		
@@ -45,8 +45,7 @@ public class FavouritedRecipesServlet extends HttpServlet {
 		}
 		
 		if (login != null) {
-			User user = model.loadUser(login);
-			
+			User user = userModel.loadUser(login);			
 			ArrayList<Recipe> favouritedRecipes = user.getFavouritedRecipes();
 			
 			String[][] recipeNames = new String[favouritedRecipes.size()][2];

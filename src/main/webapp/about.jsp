@@ -51,7 +51,7 @@
 	<h1>Welcome, you are at the 'About' page, which can tell you about this web-site.</h1>
 	<p>The idea of the site is for people to share their recipes and find out new recipes. Now the web-site has minimum functionality, but I am working on the new features.</p>
 	
-	<p>To have access to all features, please, <a href = "http://localhost:8080/recipe-sharing-site/login.jsp">login</a> or If you are new - <a href = "http://localhost:8080/recipe-sharing-site/register.jsp">register</a>.</p>
+	<p>To have access to all features, please, login or If you are new - register.</p>
 </body>
 
 </html>

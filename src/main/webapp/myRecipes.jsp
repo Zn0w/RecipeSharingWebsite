@@ -53,9 +53,10 @@
 	
 	<%
 		String[] recipeNames = (String[]) request.getAttribute("recipeNames");
+		String userLogin = (String) request.getAttribute("userLogin");
 		
 		for (int i = 0; i < recipeNames.length; i++) {
-			out.println("<input type = 'submit' value = '" + recipeNames[i] + " by " + login + "' name = 'button name'> <br>");
+			out.println("<input type = 'submit' value = '" + recipeNames[i] + " by " + userLogin + "' name = 'button name'> <br>");
 		}
 	%>
 	

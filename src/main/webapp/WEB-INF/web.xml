@@ -35,10 +35,10 @@
   	<servlet-class>com.zn0w.javacontent.servlets.LogoutServlet</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>MyRecipesServlet</servlet-name>
-  	<display-name>MyRecipesServlet</display-name>
+  	<servlet-name>UserRecipesServlet</servlet-name>
+  	<display-name>UserRecipesServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.MyRecipesServlet</servlet-class>
+  	<servlet-class>com.zn0w.javacontent.servlets.UserRecipesServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>FavouritedRecipesServlet</servlet-name>
@@ -80,8 +80,8 @@
   	<url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>MyRecipesServlet</servlet-name>
-  	<url-pattern>/MyRecipesServlet</url-pattern>
+  	<servlet-name>UserRecipesServlet</servlet-name>
+  	<url-pattern>/UserRecipesServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>FavouritedRecipesServlet</servlet-name>

@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Recipe Sharing</title>
+	<title>Recipe sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
 </head>
 
@@ -46,17 +46,27 @@
 		%>
 	</div>
 		
-	Recipes
+	Profile
 	<br><br><br><br>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Find new recipes!</a></h3>
-	<p>Here you can find recipes that is shared by other users of this web-site.</p>
+	<%
+		String userLogin = (String) request.getAttribute("userLogin");
+	%>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/UserRecipesServlet">My recipes</a></h3>
-	<p>Here you can see recipes you have already shared.</p>
+	<h1><%=userLogin%>'s profile</h1>
+	<h2>All <%=userLogin%>'s recipes</h2>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/FavouritedRecipesServlet">Favourited recipes</a></h3>
-	<p>Here you can see recipes that you have favourited.</p>
+	<form action="RecipeServlet" method = "post">
+	
+	<%
+		String[] recipeNames = (String[]) request.getAttribute("recipeNames");
+		
+		for (int i = 0; i < recipeNames.length; i++) {
+			out.println("<input type = 'submit' value = '" + recipeNames[i] + " by " + userLogin + "' name = 'button name'> <br>");
+		}
+	%>
+	
+	</form>
 </body>
 
 </html>

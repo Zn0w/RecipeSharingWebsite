@@ -85,6 +85,11 @@
 			<input type = "submit" value = "<%=buttonValue%>">
 		</form>
 		
+		<form action="UserRecipesServlet">
+			<input type = hidden name = "login" value = "<%=author%>">
+			<input type = "submit" value = "See author's profile">
+		</form>
+		
 		<h1><%=recipeName%></h1>
 		<h2>By <%=author%>'s recipe</h2>
 		<h3>Ingredients</h3>

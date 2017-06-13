@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.servlets;
+package com.zn0w.recipesharing.servlets;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.javacontent.dao.UserModel;
-import com.zn0w.javacontent.domain.User;
+import com.zn0w.recipesharing.dao.UserModel;
+import com.zn0w.recipesharing.domain.User;
 
 /**
  * Servlet implementation class LoginServlet

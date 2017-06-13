@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.dao;
+package com.zn0w.recipesharing.dao;
 
 import java.sql.Connection;
 import java.sql.Driver;

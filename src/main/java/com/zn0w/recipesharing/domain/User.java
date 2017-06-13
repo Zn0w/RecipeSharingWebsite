@@ -1,9 +1,9 @@
-package com.zn0w.javacontent.domain;
+package com.zn0w.recipesharing.domain;
 
 import java.util.ArrayList;
 
-import com.zn0w.javacontent.dao.RecipeModel;
-import com.zn0w.javacontent.dao.UserModel;
+import com.zn0w.recipesharing.dao.RecipeModel;
+import com.zn0w.recipesharing.dao.UserModel;
 
 public class User {
 	

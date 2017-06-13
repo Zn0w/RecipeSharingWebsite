@@ -8,55 +8,55 @@
   	<servlet-name>ResipeListServlet</servlet-name>
   	<display-name>ResipeListServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.ResipeListServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.ResipeListServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>RecipeServlet</servlet-name>
   	<display-name>RecipeServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.RecipeServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.RecipeServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<display-name>LoginServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.LoginServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>RegisterServlet</servlet-name>
   	<display-name>RegisterServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.RegisterServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.RegisterServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>LogoutServlet</servlet-name>
   	<display-name>LogoutServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.LogoutServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.LogoutServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>UserRecipesServlet</servlet-name>
   	<display-name>UserRecipesServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.UserRecipesServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.UserRecipesServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>FavouritedRecipesServlet</servlet-name>
   	<display-name>FavouritedRecipesServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.FavouritedRecipesServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.FavouritedRecipesServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>ShareRecipeServlet</servlet-name>
   	<display-name>ShareRecipeServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.ShareRecipeServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.ShareRecipeServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>RecipeManagerServlet</servlet-name>
   	<display-name>RecipeManagerServlet</display-name>
   	<description></description>
-  	<servlet-class>com.zn0w.javacontent.servlets.RecipeManagerServlet</servlet-class>
+  	<servlet-class>com.zn0w.recipesharing.servlets.RecipeManagerServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>

@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.domain;
+package com.zn0w.recipesharing.domain;
 
 import java.util.ArrayList;
 

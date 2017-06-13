@@ -1,4 +1,4 @@
-package com.zn0w.javacontent.servlets;
+package com.zn0w.recipesharing.servlets;
 
 import java.io.IOException;
 

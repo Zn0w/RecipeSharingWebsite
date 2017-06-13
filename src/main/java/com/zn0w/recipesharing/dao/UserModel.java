@@ -1,12 +1,12 @@
-package com.zn0w.javacontent.dao;
+package com.zn0w.recipesharing.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.zn0w.javacontent.domain.Recipe;
-import com.zn0w.javacontent.domain.User;
+import com.zn0w.recipesharing.domain.Recipe;
+import com.zn0w.recipesharing.domain.User;
 
 public class UserModel {
 	

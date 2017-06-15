@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.recipesharing.dao.RecipeModel;
+import com.zn0w.recipesharing.dao.RecipeDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 
 /**
@@ -34,7 +34,7 @@ public class ShareRecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecipeModel recipeModel = new RecipeModel();
+		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
 		
 		String name = request.getParameter("name");
 		String ingredients = request.getParameter("ingredients");

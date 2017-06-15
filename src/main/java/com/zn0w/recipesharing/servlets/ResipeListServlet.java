@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.recipesharing.dao.RecipeModel;
+import com.zn0w.recipesharing.dao.RecipeDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 
 /**
@@ -28,10 +28,10 @@ public class ResipeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecipeModel recipeModel = new RecipeModel();
-		recipeModel.loadRecipesInfo();
+		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
 		
-		ArrayList<Recipe> recipes = recipeModel.getRecipes();
+		
+		ArrayList<Recipe> recipes = recipeModel.loadAllRecipes();
 		
 		String[][] recipeInfo = new String[recipes.size()][4];
 		

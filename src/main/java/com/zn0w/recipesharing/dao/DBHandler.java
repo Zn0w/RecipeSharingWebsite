@@ -3,11 +3,13 @@ package com.zn0w.recipesharing.dao;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
-public class DBConnector {
+public class DBHandler {
 	
 	private Connection connection;
 	
@@ -15,7 +17,7 @@ public class DBConnector {
 	private final String USERNAME = "root";
 	private final String PASSWORD = "root";
 	
-	public DBConnector() {
+	public DBHandler() {
 		try {
 			Driver driver = new FabricMySQLDriver();
 			DriverManager.registerDriver(driver);
@@ -33,6 +35,36 @@ public class DBConnector {
 	
 	public Connection getConnection() {
 		return connection;
+	}
+	
+	public void close(Connection connection) {
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void close(Statement statement) {
+		if (statement != null) {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void close(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

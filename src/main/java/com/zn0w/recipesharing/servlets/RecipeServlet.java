@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.recipesharing.dao.RecipeModel;
-import com.zn0w.recipesharing.dao.UserModel;
+import com.zn0w.recipesharing.dao.RecipeDaoImpl;
+import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 import com.zn0w.recipesharing.domain.User;
 
@@ -31,7 +31,7 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecipeModel recipeModel = new RecipeModel();
+		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
 		
 		String bn = request.getParameter("button name");
 		
@@ -120,7 +120,7 @@ public class RecipeServlet extends HttpServlet {
 		
 		boolean recipeIsFavourited = false;
 		
-		UserModel userModel = new UserModel();
+		UserDaoImpl userModel = new UserDaoImpl();
 		User user = userModel.loadUser(login);
 		
 		ArrayList<Recipe> recipes = user.getFavouritedRecipes();

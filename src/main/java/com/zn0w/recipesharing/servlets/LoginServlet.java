@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.recipesharing.dao.UserModel;
+import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.User;
 
 /**
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserModel userModel = new UserModel();
+		UserDaoImpl userModel = new UserDaoImpl();
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		User preferedUser = null;
 		
 		if (userModel.loginIsCreated(username)) {
-			preferedUser = userModel.loadUser(username, password);
+			preferedUser = userModel.loadUser(username);
 		}
 		else {
 				System.out.println("User with this username doesn't exist.");
@@ -56,16 +56,18 @@ public class LoginServlet extends HttpServlet {
 		if (preferedUser != null) {
 			System.out.println("Success.");
 			
-			Cookie cookie = new Cookie("username", username);
-			
-			response.addCookie(cookie);
-			
-			response.sendRedirect("index.jsp");
-		}
-		else {
-			String message = "Password is incorrect.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("loginFailed.jsp").forward(request, response);
+			if (preferedUser.getPassword().equals(password)) {
+				Cookie cookie = new Cookie("username", username);
+				
+				response.addCookie(cookie);
+				
+				response.sendRedirect("index.jsp");
+			}
+			else {
+				String message = "Password is incorrect.";
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("loginFailed.jsp").forward(request, response);
+			}
 		}
 	}
 

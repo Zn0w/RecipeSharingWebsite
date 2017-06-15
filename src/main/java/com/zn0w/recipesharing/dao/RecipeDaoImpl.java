@@ -1,5 +1,6 @@
 package com.zn0w.recipesharing.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,16 +9,20 @@ import java.util.ArrayList;
 import com.zn0w.recipesharing.domain.Recipe;
 import com.zn0w.recipesharing.domain.User;
 
-public class RecipeModel {
+public class RecipeDaoImpl implements RecipeDao {
 	
-	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-	
-	public void loadRecipesInfo() {
-		DBConnector dbConnector = new DBConnector();
+	public ArrayList<Recipe> loadAllRecipes() {
+		DBHandler dbHandler = new DBHandler();
+		
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
+		ResultSet rs = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from recipes");
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from recipes");
 			
 			while (rs.next()) {
 				Recipe recipe = new Recipe();
@@ -32,25 +37,28 @@ public class RecipeModel {
 			}
 			
 			System.out.println("Recipes from database have been loaded.");
+			
+			return recipes;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
+			dbHandler.close(rs);
 		}
+		return recipes;
 	}
 	
 	public Recipe loadRecipe(String recipeName, String author) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
+		ResultSet rs = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from recipes");
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from recipes");
 			
 			while (rs.next()) {
 				if (rs.getString(2).equals(recipeName)) {
@@ -68,24 +76,24 @@ public class RecipeModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
+			dbHandler.close(rs);
 		}
 		
 		return null;
 	}
 	
 	public Recipe loadRecipe(int id) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
+		ResultSet rs = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from recipes");
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from recipes");
 			
 			while (rs.next()) {
 				if (rs.getInt(1) == id) {
@@ -103,24 +111,24 @@ public class RecipeModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
+			dbHandler.close(rs);
 		}
 		
 		return null;
 	}
 	
 	public boolean recipeWithNameExists(String recipeName, String author) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
+		ResultSet rs = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from recipes");
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from recipes");
 			
 			while (rs.next()) {
 				if (rs.getString(2).equals(recipeName) && rs.getString(5).equals(author))
@@ -129,61 +137,53 @@ public class RecipeModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
+			dbHandler.close(rs);
 		}
 		
 		return false;
 	}
 	
 	public void saveNewRecipe(Recipe recipe) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
+			statement = connection.createStatement();
 			statement.executeUpdate("insert into recipes(recipe_name, recipe_ingridients, recipe_description, recipe_author_login) values('"+recipe.getName()+"', '"+recipe.getIngredients()+"', '"+recipe.getDescription()+"', '"+recipe.getAuthorLogin()+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
 		}
 	}
 	
 	public void deleteRecipe(Recipe recipe) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
 		
-		Statement statement;
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
+		
 		try {
-			statement = dbConnector.getConnection().createStatement();
+			statement = connection.createStatement();
 			statement.executeUpdate("delete from recipes where id = '"+ recipe.getID() +"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
 		}
 	}
 	
 	public void addRecipeToFavorites(Recipe recipe, User user) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
 		
-		Statement statement;
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
 		
 		ArrayList<Recipe> favorites = user.getFavouritedRecipes();
 		favorites.add(recipe);
@@ -194,26 +194,24 @@ public class RecipeModel {
 		}
 		
 		try {
-			statement = dbConnector.getConnection().createStatement();
+			statement = connection.createStatement();
 			statement.executeUpdate("update users set user_favourites = '" + favoritesStr + "' where user_login = '" + user.getLogin() + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
 		}
 	}
 	
 	public void removeRecipeFromFavorites(Recipe recipe, User user) {
-		DBConnector dbConnector = new DBConnector();
+		DBHandler dbHandler = new DBHandler();
+		
+		Connection connection = dbHandler.getConnection();
+		Statement statement = null;
 		
 		try {
-			Statement statement = dbConnector.getConnection().createStatement();
+			statement = connection.createStatement();
 			
 			ArrayList<Recipe> userFavorites = user.getFavouritedRecipes();
 			int recipeId = recipe.getID();
@@ -236,22 +234,9 @@ public class RecipeModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (dbConnector != null) {
-				try {
-					dbConnector.getConnection().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			dbHandler.close(connection);
+			dbHandler.close(statement);
 		}
-	}
-	
-	public ArrayList<Recipe> getRecipes() {
-		return recipes;
-	}
-
-	public void setRecipes(ArrayList<Recipe> recipes) {
-		this.recipes = recipes;
 	}
 	
 }

@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zn0w.recipesharing.dao.RecipeModel;
-import com.zn0w.recipesharing.dao.UserModel;
+import com.zn0w.recipesharing.dao.RecipeDaoImpl;
+import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 import com.zn0w.recipesharing.domain.User;
 
@@ -34,8 +34,8 @@ public class RecipeManagerServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		String command = request.getParameter("command");
 		
-		RecipeModel recipeModel = new RecipeModel();
-		UserModel userModel = new UserModel();
+		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
+		UserDaoImpl userModel = new UserDaoImpl();
 		
 		if (login.equals("Guest"))
 			response.sendRedirect("login.jsp");

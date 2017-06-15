@@ -42,9 +42,9 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		return recipes;
 	}
@@ -76,9 +76,9 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return null;
@@ -111,9 +111,9 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return null;
@@ -137,9 +137,9 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return false;
@@ -157,8 +157,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
 			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 	}
 	
@@ -174,8 +174,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
 			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 	}
 	
@@ -199,8 +199,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
 			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 	}
 	
@@ -234,8 +234,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
 			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 	}
 	

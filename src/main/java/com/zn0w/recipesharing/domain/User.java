@@ -2,7 +2,9 @@ package com.zn0w.recipesharing.domain;
 
 import java.util.ArrayList;
 
+import com.zn0w.recipesharing.dao.RecipeDao;
 import com.zn0w.recipesharing.dao.RecipeDaoImpl;
+import com.zn0w.recipesharing.dao.UserDao;
 import com.zn0w.recipesharing.dao.UserDaoImpl;
 
 public class User {
@@ -22,8 +24,8 @@ public class User {
 		this.login = login;
 		this.password = password;
 		
-		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
-		UserDaoImpl userModel = new UserDaoImpl();
+		RecipeDao recipeModel = new RecipeDaoImpl();
+		UserDao userModel = new UserDaoImpl();
 		
 		if (userFavouritesStr != null) {
 			char[] userFavouritesDivided = userFavouritesStr.toCharArray();

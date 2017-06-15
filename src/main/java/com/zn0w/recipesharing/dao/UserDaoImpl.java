@@ -36,9 +36,9 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		return users;
 	}
@@ -64,9 +64,9 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return null;
@@ -93,9 +93,9 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return null;
@@ -130,9 +130,9 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return userRecipes;
@@ -156,9 +156,9 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
-			dbHandler.close(statement);
 			dbHandler.close(rs);
+			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 		
 		return false;
@@ -176,8 +176,8 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			dbHandler.close(connection);
 			dbHandler.close(statement);
+			dbHandler.close(connection);
 		}
 	}
 	

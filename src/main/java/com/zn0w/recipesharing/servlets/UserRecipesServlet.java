@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zn0w.recipesharing.dao.UserDao;
 import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 import com.zn0w.recipesharing.domain.User;
@@ -32,7 +33,7 @@ public class UserRecipesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = null;
 		
-		UserDaoImpl userModel = new UserDaoImpl();
+		UserDao userModel = new UserDaoImpl();
 		
 		boolean isOwner;
 		

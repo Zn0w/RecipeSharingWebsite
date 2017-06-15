@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zn0w.recipesharing.dao.UserDao;
 import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
 import com.zn0w.recipesharing.domain.User;
@@ -30,7 +31,7 @@ public class FavouritedRecipesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDaoImpl userModel = new UserDaoImpl();
+		UserDao userModel = new UserDaoImpl();
 		
 		Cookie cookies[] = request.getCookies();
 		

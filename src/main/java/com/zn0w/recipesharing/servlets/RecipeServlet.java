@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zn0w.recipesharing.dao.RecipeDao;
 import com.zn0w.recipesharing.dao.RecipeDaoImpl;
 import com.zn0w.recipesharing.dao.UserDaoImpl;
 import com.zn0w.recipesharing.domain.Recipe;
@@ -31,7 +32,7 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecipeDaoImpl recipeModel = new RecipeDaoImpl();
+		RecipeDao recipeModel = new RecipeDaoImpl();
 		
 		String bn = request.getParameter("button name");
 		
@@ -105,16 +106,6 @@ public class RecipeServlet extends HttpServlet {
 		return recipeAuthor;
 	}
 	
-	private void loadRecipeInfo(Recipe recipe) {
-		if (recipe != null) {
-			String[] ingredients = recipe.getIngredientsArray();
-			String description = recipe.getDescription();
-		}
-		else {
-			System.out.println("ERROR: recipe object is null");
-		}
-	}
-	
 	private String getRelationshipStatus(String login, Recipe recipe) {
 		String relationshipStatus = null;
 		
@@ -148,7 +139,6 @@ public class RecipeServlet extends HttpServlet {
 		Cookie cookies[] = request.getCookies();
 		
 		String login = null;
-		boolean recipeIsFavourited = false;
 		
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {

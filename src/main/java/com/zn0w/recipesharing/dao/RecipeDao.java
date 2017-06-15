@@ -21,4 +21,6 @@ public interface RecipeDao {
 	
 	public void removeRecipeFromFavorites(Recipe recipe, User user);
 	
+	public boolean recipeWithNameExists(String recipeName, String author);
+	
 }

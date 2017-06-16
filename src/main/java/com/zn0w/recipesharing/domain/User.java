@@ -28,27 +28,13 @@ public class User {
 		UserDao userModel = new UserDaoImpl();
 		
 		if (userFavouritesStr != null) {
-			char[] userFavouritesDivided = userFavouritesStr.toCharArray();
+			String[] idsStr = userFavouritesStr.split(" ");
 			
-			String id = "";
-			
-			for (int i = 0; i < userFavouritesDivided.length; i++) {
-				if (userFavouritesDivided[i] == ' ') {
-					if (!id.equals("")) {
-						System.out.println("ID: " + id);
-						
-						int idInt = Integer.parseInt(id);
-						
-						Recipe recipe = recipeModel.loadRecipe(idInt);
-						
-						if (recipe != null)
-							favouritedRecipes.add(recipe);
-						
-						id = "";
-					}
-				}
-				else
-					id += userFavouritesDivided[i];
+			for (int i = 0; i < idsStr.length; i++) {
+				int id = Integer.parseInt(idsStr[i]);
+				Recipe recipe = recipeModel.loadRecipe(id);
+				
+				favouritedRecipes.add(recipe);
 			}
 		}
 		

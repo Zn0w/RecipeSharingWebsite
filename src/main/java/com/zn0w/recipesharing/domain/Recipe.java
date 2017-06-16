@@ -20,22 +20,13 @@ public class Recipe {
 		return ingredientsList.get(index);
 	}
 	
-	public void setIngredients(String ingridients) {
-		this.ingredients = ingridients;
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
 		
-		String ingridient = "";
+		String[] ingredientsDivided = ingredients.split(",");
 		
-		for (int i = 0; i < ingridients.length(); i++) {
-			if (ingridients.charAt(i) == ',') {
-				ingredientsList.add(ingridient);
-				ingridient = "";
-			}
-			else if (ingridients.charAt(i) == '.') {
-				ingredientsList.add(ingridient);
-				ingridient = "";
-			}
-			else 
-				ingridient += ingridients.charAt(i);
+		for (int i = 0; i < ingredientsDivided.length; i++) {
+			ingredientsList.add(ingredientsDivided[i]);
 		}
 	}
 	

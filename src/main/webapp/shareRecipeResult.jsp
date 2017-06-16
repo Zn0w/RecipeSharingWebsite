@@ -1,3 +1,5 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%> 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,21 +13,16 @@
 
 <body>
 	Recipe sharing web-site by Zn0w
+
+	<c:choose >
+		<c:when test = "${cookie.containsKey('username')}">
+			<c:set var = "login" value = "${cookie['username'].value}"></c:set>
+		</c:when>
 		
-	<%
-		Cookie cookies[] = request.getCookies();
-	
-		String login = "Guest";
-		
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("username")) {
-					login = cookies[i].getValue();
-					break;
-				}
-			}
-		}
-	%>
+		<c:otherwise>
+			<c:set var = "login" value = "Guest"></c:set>
+		</c:otherwise>
+	</c:choose>
 	
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
@@ -35,33 +32,39 @@
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=login%>
+		Logged as <c:out value = "${login}"></c:out>
 		
-		<%
-			if (!login.equals("Guest")) {
-				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
-			}
-			else
-				out.println("<form action = 'login.jsp' method = 'post'><input type = 'submit' value = 'Login' align = 'right'></form>");
-		%>
+		<c:choose>
+			<c:when test = "${login == 'Guest'}">
+				<form action = 'login.jsp' method = 'post'>
+					<input type = 'submit' value = 'Login' align = 'right'>
+				</form>
+			</c:when>
+			
+			<c:otherwise>
+				<form action = 'LogoutServlet' method = 'post'>
+					<input type = 'submit' value = 'Logout' align = 'right'>
+				</form>
+			</c:otherwise>
+		</c:choose>
 	</div>
 		
 	Share recipe result
 	<br><br><br><br>
 	
-	<%
-		String message = (String) request.getAttribute("message");
-	%>
+	<c:set var = "message" value = "${requestScope.message}"/>
+		
+	<h1><c:out value="${message}"/></h1>
 	
-	<h1><%=message%></h1>
-	
-	<%
-		if (message.equals("Recipe has been successfully shared.")) {
-			out.println("<h2><a href = 'http://localhost:8080/recipe-sharing-site/MyRecipesServlet'>Go to 'My recipes' page</a></h2>");
-		}
-		else
-			out.println("<h2><a href = 'http://localhost:8080/recipe-sharing-site/shareRecipe.jsp'>Try again</a></h2>");
-	%>
+	<c:choose>
+			<c:when test = "${message == 'Recipe has been successfully shared.'}">
+				<h2><a href = "http://localhost:8080/recipe-sharing-site/UserRecipesServlet">Go to 'My recipes' page</a></h2>
+			</c:when>
+			
+			<c:otherwise>
+				<h2><a href = "http://localhost:8080/recipe-sharing-site/shareRecipe.jsp">Try again</a></h2>
+			</c:otherwise>
+		</c:choose>
 </body>
 
 </html>

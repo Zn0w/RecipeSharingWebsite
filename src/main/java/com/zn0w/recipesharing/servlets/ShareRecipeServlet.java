@@ -44,26 +44,30 @@ public class ShareRecipeServlet extends HttpServlet {
 		
 		String message = null;
 		
-		if (name.equals("") || description.equals(""))
-			message = "You mustn't leave name or description field blank.";
-		else if (!recipeModel.recipeWithNameExists(request.getParameter("name"), request.getParameter("user"))) {
-			Recipe recipe = new Recipe();
+		if (user.equals("Guest"))
+			response.sendRedirect("login.jsp");
+		else {
+			if (name.equals("") || description.equals(""))
+				message = "You mustn't leave name or description field blank.";
+			else if (!recipeModel.recipeWithNameExists(request.getParameter("name"), request.getParameter("user"))) {
+				Recipe recipe = new Recipe();
+				
+				recipe.setName(request.getParameter("name"));
+				recipe.setIngredients(request.getParameter("ingredients"));
+				recipe.setDescription(request.getParameter("description"));
+				recipe.setAuthorLogin(request.getParameter("user"));
+				
+				recipeModel.saveNewRecipe(recipe);
+				
+				message = "Recipe has been successfully shared.";
+			}
+			else
+				message = "You have already shared recipe with this name. Try another one.";
 			
-			recipe.setName(request.getParameter("name"));
-			recipe.setIngredients(request.getParameter("ingredients"));
-			recipe.setDescription(request.getParameter("description"));
-			recipe.setAuthorLogin(request.getParameter("user"));
+			request.setAttribute("message", message);
 			
-			recipeModel.saveNewRecipe(recipe);
-			
-			message = "Recipe has been successfully shared.";
+			request.getRequestDispatcher("shareRecipeResult.jsp").forward(request, response);
 		}
-		else
-			message = "You have already shared recipe with this name. Try another one.";
-		
-		request.setAttribute("message", message);
-		
-		request.getRequestDispatcher("shareRecipeResult.jsp").forward(request, response);
 	}
 
 }

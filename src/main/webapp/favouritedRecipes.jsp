@@ -1,3 +1,5 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%> 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,21 +13,16 @@
 
 <body>
 	Recipe sharing web-site by Zn0w
+
+	<c:choose >
+		<c:when test = "${cookie.containsKey('username')}">
+			<c:set var = "login" value = "${cookie['username'].value}"></c:set>
+		</c:when>
 		
-	<%
-		Cookie cookies[] = request.getCookies();
-	
-		String login = "Guest";
-		
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("username")) {
-					login = cookies[i].getValue();
-					break;
-				}
-			}
-		}
-	%>
+		<c:otherwise>
+			<c:set var = "login" value = "Guest"></c:set>
+		</c:otherwise>
+	</c:choose>
 	
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
@@ -35,30 +32,32 @@
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=login%>
+		Logged as <c:out value = "${login}"></c:out>
 		
-		<%
-			if (!login.equals("Guest")) {
-				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
-			}
-			else
-				out.println("<form action = 'login.jsp' method = 'post'><input type = 'submit' value = 'Login' align = 'right'></form>");
-		%>
+		<c:choose>
+			<c:when test = "${login == 'Guest'}">
+				<form action = 'login.jsp' method = 'post'>
+					<input type = 'submit' value = 'Login' align = 'right'>
+				</form>
+			</c:when>
+			
+			<c:otherwise>
+				<form action = 'LogoutServlet' method = 'post'>
+					<input type = 'submit' value = 'Logout' align = 'right'>
+				</form>
+			</c:otherwise>
+		</c:choose>
 	</div>
 		
 	Favorites
 	<br><br><br><br>
 	
 	<form action="RecipeServlet" method = "post">
+		<c:set var = "recipeNames" value = "${requestScope.recipeNames}"/>
 	
-	<%
-		String[][] recipeNames = (String[][]) request.getAttribute("recipeNames");
-		
-		for (int i = 0; i < recipeNames.length; i++) {
-			out.println("<input type = 'submit' value = '" + recipeNames[i][0] + " by " + recipeNames[i][1] + "' name = 'button name'> <br>");
-		}
-	%>
-	
+		<c:forEach var = "recipeInfo" items = "${recipeNames}">
+			<input type = "submit" value = "${recipeInfo[0]} by ${recipeInfo[1]}" name = "button name"> <br>
+		</c:forEach>
 	</form>
 </body>
 

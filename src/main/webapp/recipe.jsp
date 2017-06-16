@@ -1,3 +1,5 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%> 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,21 +13,16 @@
 
 <body>
 	Recipe sharing web-site by Zn0w
+
+	<c:choose >
+		<c:when test = "${cookie.containsKey('username')}">
+			<c:set var = "login" value = "${cookie['username'].value}"></c:set>
+		</c:when>
 		
-	<%
-		Cookie cookies[] = request.getCookies();
-	
-		String login = "Guest";
-		
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("username")) {
-					login = cookies[i].getValue();
-					break;
-				}
-			}
-		}
-	%>
+		<c:otherwise>
+			<c:set var = "login" value = "Guest"></c:set>
+		</c:otherwise>
+	</c:choose>
 	
 	<div id = "header">
 		<a href = "http://localhost:8080/recipe-sharing-site/">Home</a> &nbsp;
@@ -35,76 +32,76 @@
 	</div>
 	
 	<div id = "loginSection">
-		Logged as <%=login%>
+		Logged as <c:out value = "${login}"></c:out>
 		
-		<%
-			if (!login.equals("Guest")) {
-				out.println("<form action = 'LogoutServlet' method = 'post'><input type = 'submit' value = 'Logout' align = 'right'></form>");
-			}
-			else
-				out.println("<form action = 'login.jsp' method = 'post'><input type = 'submit' value = 'Login' align = 'right'></form>");
-		%>
+		<c:choose>
+			<c:when test = "${login == 'Guest'}">
+				<form action = 'login.jsp' method = 'post'>
+					<input type = 'submit' value = 'Login' align = 'right'>
+				</form>
+			</c:when>
+			
+			<c:otherwise>
+				<form action = 'LogoutServlet' method = 'post'>
+					<input type = 'submit' value = 'Logout' align = 'right'>
+				</form>
+			</c:otherwise>
+		</c:choose>
 	</div>
 		
 	Recipe
 	<br><br><br><br>
 		
-		<%
-			String relationshipStatus = (String) request.getAttribute("relationshipStatus");
+	<c:set var = "relationshipStatus" value = "${requestScope.relationshipStatus}"/>
+	<c:set var = "recipeName" value = "${requestScope.recipeName}"/>
+	<c:set var = "author" value = "${requestScope.author}"/>
+	<c:set var = "ingredients" value = "${requestScope.ingredients}"/>
+	<c:set var = "description" value = "${requestScope.description}"/>	
+		
+	<form action="RecipeManagerServlet">
+		<input type = "hidden" name = "recipeName" value = "${recipeName}">
+		<input type = "hidden" name = "author" value = "${author}">
+		<input type = "hidden" name = "userLogin" value = "${login}">
+		
+		<c:choose>
+			<c:when test = "${relationshipStatus == 'favourited'}">
+				<c:set var = "command" value = "remove"/>
+				<c:set var = "buttonValue" value = "Remove from favorites"/>
+			</c:when>
 			
-			String recipeName = (String) request.getAttribute("recipeName");
-			String author = (String) request.getAttribute("author");
-			String[] ingredients = (String[]) request.getAttribute("ingredients");
-			String description = (String) request.getAttribute("description");
-		%>
-		
-		<form action="RecipeManagerServlet">
-			<input type = "hidden" name = "recipeName" value = "<%=recipeName%>">
-			<input type = "hidden" name = "author" value = "<%=author%>">
-			<input type = "hidden" name = "userLogin" value = "<%=login%>">
+			<c:when test = "${relationshipStatus == 'not favourited'}">
+				<c:set var = "command" value = "add"/>
+				<c:set var = "buttonValue" value = "Add to favorites"/>
+			</c:when>
 			
-			<%
-				String command = null;
-				String buttonValue = null;
-				
-				if (relationshipStatus.equals("favourited")) {
-					command = "remove";
-					buttonValue = "Remove from favorites";
-				}
-				else if (relationshipStatus.equals("not favourited")) {
-					command = "add";
-					buttonValue = "Add to favorites";
-				}
-				else if (relationshipStatus.equals("owner")) {
-					command = "destroy";
-					buttonValue = "Delete recipe";
-				}
-			%>
+			<c:when test = "${relationshipStatus == 'owner'}">
+				<c:set var = "command" value = "destroy"/>
+				<c:set var = "buttonValue" value = "Delete recipe"/>
+			</c:when>
+		</c:choose>
 			
-			<input type = "hidden" name = "command" value = "<%=command%>">
-			<input type = "submit" value = "<%=buttonValue%>">
-		</form>
+		<input type = "hidden" name = "command" value = "${command}">
+		<input type = "submit" value = "${buttonValue}">
+	</form>
 		
-		<form action="UserRecipesServlet">
-			<input type = hidden name = "login" value = "<%=author%>">
-			<input type = "submit" value = "See author's profile">
-		</form>
+	<form action="UserRecipesServlet">
+		<input type = hidden name = "login" value = "${author}">
+		<input type = "submit" value = "See author's profile">
+	</form>
 		
-		<h1><%=recipeName%></h1>
-		<h2>By <%=author%>'s recipe</h2>
-		<h3>Ingredients</h3>
+	<h1><c:out value="${recipeName}"/></h1>
+	<h2>By <c:out value="${author}"/>'s recipe</h2>
+	<h3>Ingredients</h3>
 			
-		<ul>
-		<%
-			for (int i = 0; i < ingredients.length; i++) {
-				out.println("<li>" + ingredients[i] + "</li>");
-			}
-		%>
-		</ul>
+	<ul>
+		<c:forEach var = "ingredient" items = "${ingredients}">
+			<li><c:out value="${ingredient}"/></li>
+		</c:forEach>
+	</ul>
 		
-		<h3>Description</h3>
+	<h3>Description</h3>
 		
-		<p><%=description%></p>
+	<p><c:out value="${description}"/></p>
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%> 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,20 +25,19 @@
 	<br><br><br><br>
 	
 	<div align = "center">
-		<%
-			String message = (String) request.getAttribute("message");
-		%>
+		<c:set var = "message" value = "${requestScope.message}"/>
 		
-		<h1><%=message%></h1>
+		<h1><c:out value="${message}"/></h1>
 		
-		<%
-			if (message.equals("User has been succesfully created!")) {
-				out.println("<h1><a href = 'http://localhost:8080/recipe-sharing-site/login.jsp'>Log in</a></h1>");
-			}
-			else {
-				out.println("<h1><a href = http://localhost:8080/recipe-sharing-site/register.jsp>Try again</a></h1>");
-			}
-		%>
+		<c:choose>
+			<c:when test = "${message == 'User has been succesfully created!'}">
+				<h1><a href = "http://localhost:8080/recipe-sharing-site/login.jsp">Log in</a></h1>
+			</c:when>
+			
+			<c:otherwise>
+				<h1><a href = "http://localhost:8080/recipe-sharing-site/register.jsp">Try again</a></h1>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 

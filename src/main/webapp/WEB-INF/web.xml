@@ -60,6 +60,13 @@
   	<description></description>
   	<servlet-class>com.zn0w.recipesharing.servlets.RecipeManagerServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>SendCommentServlet</display-name>
+  	<servlet-name>SendCommentServlet</servlet-name>
+  	<servlet-class>com.zn0w.recipesharing.servlets.SendCommentServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
@@ -96,5 +103,9 @@
   <servlet-mapping>
   	<servlet-name>RecipeManagerServlet</servlet-name>
   	<url-pattern>/RecipeManagerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SendCommentServlet</servlet-name>
+  	<url-pattern>/SendCommentServlet</url-pattern>
   </servlet-mapping>
 </web-app>

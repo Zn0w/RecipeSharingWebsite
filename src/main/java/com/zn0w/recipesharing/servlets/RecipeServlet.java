@@ -34,10 +34,21 @@ public class RecipeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RecipeDao recipeModel = new RecipeDaoImpl();
 		
-		String bn = request.getParameter("button name");
+		String recipeName;
+		String recipeAuthor;
 		
-		String recipeName = getRecipeName(bn);
-		String recipeAuthor = getRecipeAuthor(bn);
+		if (request.getParameterMap().containsKey("recipeName")) {
+			recipeName = request.getParameter("recipeName");
+			recipeAuthor = request.getParameter("author");
+			System.out.println("Working fine.");
+		}
+		else {
+			System.out.println("In else.");
+			String bn = request.getParameter("button name");
+			
+			recipeName = getRecipeName(bn);
+			recipeAuthor = getRecipeAuthor(bn);
+		}
 		
 		System.out.println(recipeName + "|" + recipeAuthor);
 		
@@ -62,6 +73,10 @@ public class RecipeServlet extends HttpServlet {
 		else if (login != null && preferedRecipe != null) {
 			relationshipStatus = getRelationshipStatus(login, preferedRecipe);
 		}
+		
+		String[][] commentsInfo = preferedRecipe.getComments();
+		
+		request.setAttribute("commentsInfo", commentsInfo);
 		
 		request.setAttribute("relationshipStatus", relationshipStatus);
 		

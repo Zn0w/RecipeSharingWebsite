@@ -102,6 +102,32 @@
 	<h3>Description</h3>
 		
 	<p><c:out value="${description}"/></p>
+	
+	<br><br>
+	<h3>Comments</h3>
+	
+	<div align = "center">
+		<form action="SendCommentServlet" method = "post">
+			<textarea rows="7" cols="80" name = "commentContent">You can leave a comment here</textarea>
+			<input type = "hidden" name = "commentAuthor" value = "${login}">
+			<input type = "hidden" name = "recipeName" value = "${recipeName}">
+			<input type = "hidden" name = "recipeAuthor" value = "${author}">
+			<input type = "submit" value = "Send">
+		</form>
+		
+		<br><br><br>
+		
+		<c:set var = "commentsInfo" value = "${requestScope.commentsInfo}"/>
+		
+		<c:if test="${not empty commentsInfo}">
+			<c:forEach var = "comment" items = "${commentsInfo}">
+				<c:out value="${comment[0]}"/>
+				<br>
+				<textarea rows="5" cols="85" readonly = "readonly"><c:out value="${comment[1]}"/></textarea>
+				<br><br>
+			</c:forEach>
+		</c:if>
+	</div>
 </body>
 
 </html>

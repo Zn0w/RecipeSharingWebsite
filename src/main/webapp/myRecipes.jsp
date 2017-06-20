@@ -52,7 +52,7 @@
 	My recipes
 	<br><br><br><br>
 	
-	<form action="RecipeServlet" method = "post">
+	<form action="RecipeServlet">
 		<c:set var = "recipeNames" value = "${requestScope.recipeNames}"/>
 		<c:set var = "userLogin" value = "${requestScope.userLogin}"/>
 	

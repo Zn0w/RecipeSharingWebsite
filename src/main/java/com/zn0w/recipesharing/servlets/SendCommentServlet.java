@@ -29,11 +29,14 @@ public class SendCommentServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String commentAuthor = request.getParameter("commentAuthor");
 		String commentContent = request.getParameter("commentContent");
 		String recipeName = request.getParameter("recipeName");
 		String recipeAuthor = request.getParameter("recipeAuthor");
+		
+		String recipeUrl = request.getParameter("recipeUrl");
+		System.out.println("Recipe URL: " + recipeUrl);
 		
 		if (commentAuthor.equals("Guest")) {
 			response.sendRedirect("login.jsp");
@@ -48,7 +51,7 @@ public class SendCommentServlet extends HttpServlet {
 			request.setAttribute("recipeName", recipeName);
 			request.setAttribute("author", recipeAuthor);
 			
-			request.getRequestDispatcher("/RecipeServlet").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/RecipeServlet?" + recipeUrl);
 		}
 	}
 

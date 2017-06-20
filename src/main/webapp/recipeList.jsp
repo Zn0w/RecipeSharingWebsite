@@ -50,9 +50,7 @@
 	
 	<c:set var = "recipes" value = "${requestScope.recipes}"/>
 	
-	<form action="RecipeServlet" method = "post">	
-		<input type = "hidden" value = "${recipes}" name = "recipes">
-		
+	<form action="RecipeServlet">	
 		<c:forEach var = "recipe" items = "${recipes}">
 			<input type = "submit" value = "${recipe[0]} by ${recipe[3]}" name  = "button name"> <br>
 		</c:forEach>

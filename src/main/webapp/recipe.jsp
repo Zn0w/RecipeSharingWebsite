@@ -107,8 +107,11 @@
 	<h3>Comments</h3>
 	
 	<div align = "center">
-		<form action="SendCommentServlet" method = "post">
+		<form action="SendCommentServlet">
 			<textarea rows="7" cols="80" name = "commentContent">You can leave a comment here</textarea>
+			
+			<input type = "hidden" name = "recipeUrl" value = "${requestScope['javax.servlet.forward.query_string']}">
+			
 			<input type = "hidden" name = "commentAuthor" value = "${login}">
 			<input type = "hidden" name = "recipeName" value = "${recipeName}">
 			<input type = "hidden" name = "recipeAuthor" value = "${author}">

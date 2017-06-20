@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Recipe Sharing</title>
+	<title>Recipe sharing</title>
 	<link href = "styles/stylesheet.css" type = "text/css" rel = "stylesheet">
 </head>
 
@@ -48,18 +48,33 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-		
-	Recipes
+	
+	Find recipes
 	<br><br><br><br>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/findRecipes.jsp">Find new recipes!</a></h3>
-	<p>Here you can find recipes that is shared by other users of this web-site.</p>
+	<h3>Search by recipe</h3>
+	<br><br>
+	<div align = "center">
+		<form action="SearchServlet">
+			<input type = "hidden" name = "typeOfSearch" value = "recipe">
+			<input type = "text" name = "searchQuery">  <input type = "submit" value = "Search">
+		</form>
+	</div>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/UserRecipesServlet">My recipes</a></h3>
-	<p>Here you can see recipes you have already shared.</p>
+	<br><br><br>
 	
-	<h3><a href = "http://localhost:8080/recipe-sharing-site/FavouritedRecipesServlet">Favourited recipes</a></h3>
-	<p>Here you can see recipes that you have favourited.</p>
+	<h3>Search by user</h3>
+	<br><br>
+	<div align = "center">
+		<form action="SearchServlet">
+			<input type = "hidden" name = "typeOfSearch" value = "user">
+			<input type = "text" name = "searchQuery">  <input type = "submit" value = "Search">
+		</form>
+	</div>
+	
+	<br><br><br>
+	
+	<h3><a href = "http://localhost:8080/recipe-sharing-site/ResipeListServlet">Show full list of recipes</a></h3>
 </body>
 
 </html>

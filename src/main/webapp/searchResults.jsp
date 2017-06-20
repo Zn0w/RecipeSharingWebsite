@@ -1,4 +1,4 @@
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -48,22 +48,33 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-		
-	Profile
+	
+	Search results
 	<br><br><br><br>
 	
-	<c:set var = "userLogin" value = "${requestScope.userLogin}"/>
-	
-	<h1><c:out value = "${userLogin}"/>'s profile</h1>
-	<h2>All <c:out value = "${userLogin}"/>'s recipes</h2>
-	
-	<form action="RecipeServlet">
-		<c:set var = "recipeNames" value = "${requestScope.recipeNames}"/>
-	
-		<c:forEach var = "recipeInfo" items = "${recipeNames}">
-			<input type = "submit" value = "${recipeInfo} by ${userLogin}" name = "button name"> <br>
-		</c:forEach>
-	</form>
+	<div align = "center">
+		<c:choose>
+			<c:when test = "${requestScope.searchType == 'recipe'}">
+				<c:set var = "recipes" value = "${requestScope.recipes}"/>
+				
+				<form action="RecipeServlet">
+					<c:forEach var = "recipe" items = "${recipes}">
+						<input type = "submit" value = "${recipe[0]} by ${recipe[1]}" name  = "button name"> <br>
+					</c:forEach>
+				</form>
+			</c:when>
+		
+			<c:when test = "${requestScope.searchType == 'user'}">
+				<c:set var = "users" value = "${requestScope.users}"/>
+					
+				<form action="UserRecipesServlet">
+					<c:forEach var = "user" items = "${users}">
+						<input type = "submit" value = "${user}" name  = "login"> <br>
+					</c:forEach>
+				</form>
+			</c:when>
+		</c:choose>
+	</div>
 </body>
 
 </html>

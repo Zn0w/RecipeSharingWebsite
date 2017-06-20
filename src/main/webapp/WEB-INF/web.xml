@@ -67,6 +67,13 @@
   	<servlet-name>SendCommentServlet</servlet-name>
   	<servlet-class>com.zn0w.recipesharing.servlets.SendCommentServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>SearchServlet</display-name>
+  	<servlet-name>SearchServlet</servlet-name>
+  	<servlet-class>com.zn0w.recipesharing.servlets.SearchServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
   	<servlet-name>ResipeListServlet</servlet-name>
@@ -107,5 +114,9 @@
   <servlet-mapping>
   	<servlet-name>SendCommentServlet</servlet-name>
   	<url-pattern>/SendCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SearchServlet</servlet-name>
+  	<url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
 </web-app>

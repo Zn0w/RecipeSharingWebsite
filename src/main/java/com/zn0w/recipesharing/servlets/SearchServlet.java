@@ -87,7 +87,7 @@ public class SearchServlet extends HttpServlet {
 		for (int i = 0; i < recipes.size(); i++) {
 			Recipe recipe = recipes.get(i);
 			
-			if (recipe.getName().contains(query)) {
+			if (recipe.getName().toLowerCase().contains(query.toLowerCase())) {
 				wantedRecipes.add(recipe);
 			}
 		}
@@ -104,7 +104,7 @@ public class SearchServlet extends HttpServlet {
 		for (int i = 0; i < users.size(); i++) {
 			User user = users.get(i);
 			
-			if (user.getLogin().contains(query)) {
+			if (user.getLogin().toLowerCase().contains(query.toLowerCase())) {
 				wantedUsers.add(user);
 			}
 		}
